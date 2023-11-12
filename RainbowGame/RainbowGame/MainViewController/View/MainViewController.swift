@@ -7,12 +7,13 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
-    
+class MainViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+      
         
     }
 }
+
