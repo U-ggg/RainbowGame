@@ -16,6 +16,7 @@
 		EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7419BD2B01511A00B48D3E /* ResultsViewController.swift */; };
 		EB7419C02B01514100B48D3E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7419BF2B01514100B48D3E /* SettingsViewController.swift */; };
 		EB7419C22B01515200B48D3E /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7419C12B01515200B48D3E /* RulesViewController.swift */; };
+		EBEC65892B02924400E05784 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EBEC65882B02924400E05784 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBEC65892B02924400E05784 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +150,9 @@
 			dependencies = (
 			);
 			name = RainbowGame;
+			packageProductDependencies = (
+				EBEC65882B02924400E05784 /* SnapKit */,
+			);
 			productName = RainbowGame;
 			productReference = EB559D8E2B010F03003E28E4 /* RainbowGame.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +181,9 @@
 				Base,
 			);
 			mainGroup = EB559D852B010F03003E28E4;
+			packageReferences = (
+				EBEC65872B02924400E05784 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = EB559D8F2B010F03003E28E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -423,6 +431,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EBEC65872B02924400E05784 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EBEC65882B02924400E05784 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBEC65872B02924400E05784 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EB559D862B010F03003E28E4 /* Project object */;
 }
