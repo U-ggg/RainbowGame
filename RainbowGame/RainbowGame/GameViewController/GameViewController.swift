@@ -15,8 +15,8 @@ final class GameViewController: UIViewController {
     var timer: Timer?
     var secondsPassed: Int = 0
     var isTimerPaused: Bool = false
-    let gameTime = 10
-    let updateTime = 2
+    let gameTime = 120
+    let updateTime = 20
     var updateButton: UIButton = {
         let button = UIButton()
         button.setTitle("Далее", for: .normal)
@@ -46,6 +46,7 @@ final class GameViewController: UIViewController {
         for i in 0...colors.count - 1 {
             let leading = Int.random(in: 20...150)
             let card = RainbowCardView(cardBackgroundColor: colors[i].1 , labelText: colors[i].0)
+            card.delegate = self
             view.addSubview(card)
             card.snp.makeConstraints { make in
                 make.top.equalTo(top)
@@ -127,6 +128,15 @@ final class GameViewController: UIViewController {
     }
 }
 
-#Preview {
-    GameViewController()
+
+extension GameViewController: CheckViewDelegate {
+    func button() {
+        print("kfkfkf")
+    }
+    
+    
 }
+//
+//#Preview {
+//    GameViewController()
+//}
