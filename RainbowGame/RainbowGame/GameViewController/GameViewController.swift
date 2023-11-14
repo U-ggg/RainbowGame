@@ -17,12 +17,11 @@ final class GameViewController: UIViewController {
     var isTimerPaused: Bool = false
     let gameTime = 120
     let updateTime = 20
-    var updateButton: UIButton = {
+    lazy var updateButton: UIButton = {
         let button = UIButton()
         button.setTitle("Далее", for: .normal)
         button.backgroundColor = .systemIndigo
         button.layer.cornerRadius = 15
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(nextCards) , for: .touchUpInside)
         return button
     }()
@@ -33,7 +32,7 @@ final class GameViewController: UIViewController {
         setupNavBar()
         setupCards()
         setupButton()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        startTimer()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -59,7 +58,6 @@ final class GameViewController: UIViewController {
         }
     }
     
-    
     private func setupBackGround() {
         view.backgroundColor = .white
         view.addSubview(background)
@@ -69,12 +67,12 @@ final class GameViewController: UIViewController {
     }
     
     private func setupNavBar() {
-        title = "00:00"
+        title = formatTime(seconds: gameTime)
         let customLeftButton = UIBarButtonItem(image: UIImage(systemName: "arrowshape.backward.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
         let customRightButton = UIBarButtonItem(image: UIImage(systemName: "pause.fill"), style: .plain, target: self, action: #selector(pauseButtonTapped))
         navigationItem.leftBarButtonItem = customLeftButton
         navigationItem.rightBarButtonItem = customRightButton
-        
+        navigationItem.rightBarButtonItem?.isSelected = false
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
         ]
@@ -88,6 +86,10 @@ final class GameViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.centerX.equalToSuperview()
         }
+    }
+    
+    private func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     private func formatTime(seconds: Int) -> String {
@@ -108,6 +110,13 @@ final class GameViewController: UIViewController {
     
     @objc func pauseButtonTapped() {
         isTimerPaused.toggle()
+        guard let isSelected = navigationItem.rightBarButtonItem?.isSelected else {return}
+        if !isSelected {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "play.fill")
+        } else {
+            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "pause.fill")
+        }
+        navigationItem.rightBarButtonItem?.isSelected.toggle()
     }
     
     @objc func updateTimer() {
@@ -117,7 +126,7 @@ final class GameViewController: UIViewController {
         }
         updateButton.isEnabled = true
         secondsPassed += 1
-        title = formatTime(seconds: secondsPassed)
+        title = formatTime(seconds: gameTime - secondsPassed)
         if secondsPassed == gameTime {
             timer?.invalidate()
             present(ResultsViewController(), animated: true)
@@ -131,7 +140,7 @@ final class GameViewController: UIViewController {
 
 extension GameViewController: CheckViewDelegate {
     func button() {
-        print("kfkfkf")
+        print("Check +1")
     }
     
     
