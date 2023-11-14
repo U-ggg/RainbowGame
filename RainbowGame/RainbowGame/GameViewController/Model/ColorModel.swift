@@ -13,7 +13,7 @@ struct ColorModel {
         ("Красный", UIColor.red),
             ("Синий", UIColor.blue),
             ("Зеленый", UIColor.green),
-            ("Желтый", UIColor.yellow),
+        ("Желтый", UIColor.systemYellow),
             ("Оранжевый", UIColor.orange),
             ("Фиолетовый", UIColor.purple),
             ("Розовый", UIColor.systemPink),
