@@ -12,6 +12,7 @@
 		0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */; };
 		0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EAD2B02B514002B6DFB /* Colors.swift */; };
 		0B7D0EB12B02BCD9002B6DFB /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EB02B02BCD9002B6DFB /* Background.swift */; };
+		79E442642B041839009365F7 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E442632B041839009365F7 /* SettingsManager.swift */; };
 		EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D912B010F03003E28E4 /* AppDelegate.swift */; };
 		EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D932B010F03003E28E4 /* SceneDelegate.swift */; };
 		EB559D9B2B010F04003E28E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB559D9A2B010F04003E28E4 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 		0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainbowCardView.swift; sourceTree = "<group>"; };
 		0B7D0EAD2B02B514002B6DFB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0B7D0EB02B02BCD9002B6DFB /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		79E442632B041839009365F7 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		EB559D8E2B010F03003E28E4 /* RainbowGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB559D912B010F03003E28E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB559D932B010F03003E28E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		79E442652B041B4D009365F7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				79E442632B041839009365F7 /* SettingsManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		EB559D852B010F03003E28E4 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 				EB559DAB2B011056003E28E4 /* SettingsViewController */,
 				EB559DA92B01103A003E28E4 /* RulesViewController */,
 				EB559DA62B010FDF003E28E4 /* Support */,
+				79E442652B041B4D009365F7 /* Services */,
 			);
 			path = RainbowGame;
 			sourceTree = "<group>";
@@ -257,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79E442642B041839009365F7 /* SettingsManager.swift in Sources */,
 				EB7419C22B01515200B48D3E /* RulesViewController.swift in Sources */,
 				0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */,
 				EB7419BC2B01510800B48D3E /* GameViewController.swift in Sources */,
