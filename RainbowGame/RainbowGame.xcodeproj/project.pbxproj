@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63240B382B024B2600D32096 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63240B372B024B2600D32096 /* TabBarViewController.swift */; };
-		63240B3A2B024FD200D32096 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63240B392B024FD200D32096 /* Extensions.swift */; };
+		0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA52B02B4FB002B6DFB /* ColorSelection.swift */; };
+		0B7D0EAA2B02B502002B6DFB /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA82B02B502002B6DFB /* ColorModel.swift */; };
+		0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */; };
+		0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EAD2B02B514002B6DFB /* Colors.swift */; };
+		0B7D0EB12B02BCD9002B6DFB /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EB02B02BCD9002B6DFB /* Background.swift */; };
 		EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D912B010F03003E28E4 /* AppDelegate.swift */; };
 		EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D932B010F03003E28E4 /* SceneDelegate.swift */; };
 		EB559D9B2B010F04003E28E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB559D9A2B010F04003E28E4 /* Assets.xcassets */; };
@@ -18,11 +21,15 @@
 		EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7419BD2B01511A00B48D3E /* ResultsViewController.swift */; };
 		EB7419C02B01514100B48D3E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7419BF2B01514100B48D3E /* SettingsViewController.swift */; };
 		EB7419C22B01515200B48D3E /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7419C12B01515200B48D3E /* RulesViewController.swift */; };
+		EBEC65892B02924400E05784 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EBEC65882B02924400E05784 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		63240B372B024B2600D32096 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		63240B392B024FD200D32096 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0B7D0EA52B02B4FB002B6DFB /* ColorSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelection.swift; sourceTree = "<group>"; };
+		0B7D0EA82B02B502002B6DFB /* ColorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
+		0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainbowCardView.swift; sourceTree = "<group>"; };
+		0B7D0EAD2B02B514002B6DFB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0B7D0EB02B02BCD9002B6DFB /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		EB559D8E2B010F03003E28E4 /* RainbowGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB559D912B010F03003E28E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB559D932B010F03003E28E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,12 +48,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBEC65892B02924400E05784 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B7D0EA42B02B4FB002B6DFB /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0B7D0EA52B02B4FB002B6DFB /* ColorSelection.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		0B7D0EA72B02B502002B6DFB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B7D0EA82B02B502002B6DFB /* ColorModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0B7D0EAC2B02B514002B6DFB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0B7D0EAD2B02B514002B6DFB /* Colors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0B7D0EAF2B02BCAE002B6DFB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */,
+				0B7D0EB02B02BCD9002B6DFB /* Background.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EB559D852B010F03003E28E4 = {
 			isa = PBXGroup;
 			children = (
@@ -66,8 +107,6 @@
 		EB559D902B010F03003E28E4 /* RainbowGame */ = {
 			isa = PBXGroup;
 			children = (
-				63240B392B024FD200D32096 /* Extensions.swift */,
-				63240B372B024B2600D32096 /* TabBarViewController.swift */,
 				EB559DA52B010F43003E28E4 /* App */,
 				EB559DA72B01101F003E28E4 /* MainViewController */,
 				EB559DA82B011028003E28E4 /* GameViewController */,
@@ -91,6 +130,7 @@
 		EB559DA62B010FDF003E28E4 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				0B7D0EAC2B02B514002B6DFB /* Extensions */,
 				EB559D9A2B010F04003E28E4 /* Assets.xcassets */,
 				EB559D9C2B010F04003E28E4 /* LaunchScreen.storyboard */,
 				EB559D9F2B010F04003E28E4 /* Info.plist */,
@@ -109,6 +149,9 @@
 		EB559DA82B011028003E28E4 /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0B7D0EAF2B02BCAE002B6DFB /* View */,
+				0B7D0EA72B02B502002B6DFB /* Model */,
+				0B7D0EA42B02B4FB002B6DFB /* Helper */,
 				EB7419BB2B01510800B48D3E /* GameViewController.swift */,
 			);
 			path = GameViewController;
@@ -154,6 +197,9 @@
 			dependencies = (
 			);
 			name = RainbowGame;
+			packageProductDependencies = (
+				EBEC65882B02924400E05784 /* SnapKit */,
+			);
 			productName = RainbowGame;
 			productReference = EB559D8E2B010F03003E28E4 /* RainbowGame.app */;
 			productType = "com.apple.product-type.application";
@@ -182,6 +228,9 @@
 				Base,
 			);
 			mainGroup = EB559D852B010F03003E28E4;
+			packageReferences = (
+				EBEC65872B02924400E05784 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = EB559D8F2B010F03003E28E4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,14 +258,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB7419C22B01515200B48D3E /* RulesViewController.swift in Sources */,
-				63240B3A2B024FD200D32096 /* Extensions.swift in Sources */,
+				0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */,
 				EB7419BC2B01510800B48D3E /* GameViewController.swift in Sources */,
+				0B7D0EAA2B02B502002B6DFB /* ColorModel.swift in Sources */,
 				EB7419BA2B0150E600B48D3E /* MainViewController.swift in Sources */,
 				EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */,
+				0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */,
+				0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */,
 				EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */,
 				EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */,
-				63240B382B024B2600D32096 /* TabBarViewController.swift in Sources */,
 				EB7419C02B01514100B48D3E /* SettingsViewController.swift in Sources */,
+				0B7D0EB12B02BCD9002B6DFB /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +483,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EBEC65872B02924400E05784 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EBEC65882B02924400E05784 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBEC65872B02924400E05784 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EB559D862B010F03003E28E4 /* Project object */;
 }
