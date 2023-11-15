@@ -10,76 +10,116 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    //MARK: - UI Elements
+    private let rainbowImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "rainbow")
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
+    private let rainbowLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Игра Радуга"
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 40)
+        label.textColor = .black
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var newGameButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.setTitle("Новая игра", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 222/255, green: 34/255, blue: 34/255, alpha: 1.0)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 2
+        button.addTarget(self, action: #selector(MainViewController.buttonNewGamePressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var continueGameButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.setTitle("Продолжить", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 47/255, green: 134/255, blue: 183/255, alpha: 1.0)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 2
+        button.addTarget(self, action: #selector(MainViewController.buttonContinuePressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var statisticsButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.setTitle("Статистика", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 48/255, green: 167/255, blue: 74/255, alpha: 1.0)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 2
+        button.addTarget(self, action: #selector(MainViewController.buttonStatisticsPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var settingsButton: UIButton = {
+        let button = UIButton()
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 2
+        button.setImage(UIImage (named: "settings"), for: .normal)
+        button.addTarget(self, action: #selector(MainViewController.buttonSettingsPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private let rulesButton: UIButton = {
+        let button = UIButton()
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        button.layer.shadowOpacity = 0.8
+        button.layer.shadowRadius = 2
+        button.setImage(UIImage (named: "question"), for: .normal)
+        button.addTarget(nil, action: #selector(MainViewController.buttonRulesPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initialize()
-                
+        
     }
     
-    @objc func  buttonNewGamePressed() {
-        let newGameVC = GameViewController()
-        newGameVC.modalPresentationStyle =  .fullScreen
-        self.present(newGameVC, animated: true)
-    }
-
-    
-    @objc func  buttonContinuePressed() {
-        let continueGameVC = GameViewController()
-        continueGameVC.modalPresentationStyle =  .fullScreen
-        self.present(continueGameVC, animated: true)
-    }
-    
-    @objc func  buttonStatisticsPressed() {
-        let statisticsVC = ResultsViewController()
-        statisticsVC.modalPresentationStyle =  .fullScreen
-        self.present(statisticsVC, animated: true)
-    }
-    
-    @objc func  buttonSettingsPressed() {
-        let settingsVC = SettingsViewController()
-        settingsVC.modalPresentationStyle =  .fullScreen
-        self.present(settingsVC, animated: true)
-    }
-
-    @objc func  buttonRulesPressed() {
-        let rulesVC = RulesViewController()
-        rulesVC.modalPresentationStyle =  .fullScreen
-        self.present(rulesVC, animated: true)
-    }
-
-    
-    
+    //MARK: - Setup UI
     private func initialize() {
         view.backgroundColor = UIColor.gray
-        
-        let rainbowImage: UIImageView = {
-            
-           let image = UIImageView()
-            image.image = UIImage(named: "rainbow")
-            image.contentMode = .scaleAspectFit
-//            image.backgroundColor = .red
-            return image
-        }()
-        
         view.addSubview(rainbowImage)
+        view.addSubview(rainbowLabel)
+        view.addSubview(newGameButton)
+        view.addSubview(continueGameButton)
+        view.addSubview(statisticsButton)
+        view.addSubview(settingsButton)
+        view.addSubview(rulesButton)
+        
         rainbowImage.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(10)
-            make.top.equalToSuperview().inset(50)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.height.equalTo(200)
         }
         
-        let rainbowLabel: UILabel = {
-            let label = UILabel()
-            label.text = "Игра Радуга"
-            label.textAlignment = .center
-            label.font = .boldSystemFont(ofSize: 40)
-            label.textColor = .black
-            label.numberOfLines = 0
-//            label.backgroundColor = .red
-            return label
-        }()
-        
-        view.addSubview(rainbowLabel)
         rainbowLabel.snp.makeConstraints {make in
             make.centerX.equalToSuperview()
             make.width.equalTo(150)
@@ -87,99 +127,60 @@ final class MainViewController: UIViewController {
             make.height.equalTo(100)
         }
         
-        
-        let newGameButton: UIButton = {
-            let button = UIButton()
-            button.layer.cornerRadius = 10
-            button.setTitle("Новая игра", for: .normal)
-            button.titleLabel?.font = .boldSystemFont(ofSize: 25)
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = .red
-            button.addTarget(nil, action: #selector(MainViewController.buttonNewGamePressed), for: .touchUpInside)
-
-            return button
-        }()
-        
-        view.addSubview(newGameButton)
         newGameButton.snp.makeConstraints {make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.top.equalTo(rainbowLabel.snp.bottom).offset(30)
-            make.height.equalTo(56)
-        }
-
-        
-        let continueGameButton: UIButton = {
-            let button = UIButton()
-            button.layer.cornerRadius = 10
-            button.setTitle("Продолжить", for: .normal)
-            button.titleLabel?.font = .boldSystemFont(ofSize: 25)
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = .blue
-            button.addTarget(nil, action: #selector(MainViewController.buttonContinuePressed), for: .touchUpInside)
-
-            return button
-        }()
-        
-        view.addSubview(continueGameButton)
-       continueGameButton.snp.makeConstraints {make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.top.equalTo(newGameButton.snp.bottom).offset(20)
-            make.height.equalTo(56)
+            make.horizontalEdges.equalToSuperview().inset(50)
+            make.bottom.equalTo(continueGameButton.snp.top).inset(-16)
+            make.height.equalTo(84)
         }
         
-        let statisticsButton: UIButton = {
-            let button = UIButton()
-            button.layer.cornerRadius = 10
-            button.setTitle("Статистика", for: .normal)
-            button.titleLabel?.font = .boldSystemFont(ofSize: 25)
-            button.setTitleColor(.white, for: .normal)
-            button.backgroundColor = .green
-            button.addTarget(nil, action: #selector(MainViewController.buttonStatisticsPressed), for: .touchUpInside)
-
-            return button
-        }()
+        continueGameButton.snp.makeConstraints {make in
+            make.horizontalEdges.equalToSuperview().inset(50)
+            make.bottom.equalTo(statisticsButton.snp.top).inset(-16)
+            make.height.equalTo(84)
+        }
         
-        view.addSubview(statisticsButton)
         statisticsButton.snp.makeConstraints {make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.top.equalTo(continueGameButton.snp.bottom).offset(20)
-            make.height.equalTo(56)
+            make.horizontalEdges.equalToSuperview().inset(50)
+            make.bottom.equalToSuperview().inset(128)
+            make.height.equalTo(84)
         }
         
-        let settingsButton: UIButton = {
-            let button = UIButton()
-            button.setImage(UIImage (named: "settings"), for: .normal)
-
-            button.addTarget(nil, action: #selector(MainViewController.buttonSettingsPressed), for: .touchUpInside)
-
-            return button
-        }()
-
-        view.addSubview(settingsButton)
         settingsButton.snp.makeConstraints {make in
-            make.left.equalToSuperview().inset(50)
-            make.bottom.equalToSuperview().inset(50)
-            make.width.height.equalTo(75)
+            make.left.equalToSuperview().inset(28)
+            make.bottom.equalToSuperview().inset(35)
+            make.size.equalTo(50)
         }
         
-        let rulesButton: UIButton = {
-            let button = UIButton()
-            button.setImage(UIImage (named: "question"), for: .normal)
-
-            button.addTarget(nil, action: #selector(MainViewController.buttonRulesPressed), for: .touchUpInside)
-
-            return button
-        }()
-
-        view.addSubview(rulesButton)
         rulesButton.snp.makeConstraints {make in
-            make.right.equalToSuperview().inset(50)
-            make.bottom.equalToSuperview().inset(50)
-            make.width.height.equalTo(75)
+            make.right.equalToSuperview().inset(28)
+            make.bottom.equalToSuperview().inset(35)
+            make.size.equalTo(50)
         }
-        
+    }
+    
+    //MARK: - Targets
+    @objc private func  buttonNewGamePressed() {
+        let newGameVC = GameViewController()
+        navigationController?.pushViewController(newGameVC, animated: true)
+    }
+    
+    @objc private func  buttonContinuePressed() {
+        let continueGameVC = GameViewController()
+        navigationController?.pushViewController(continueGameVC, animated: true)
+    }
+    
+    @objc private func  buttonStatisticsPressed() {
+        let statisticsVC = ResultsViewController()
+        navigationController?.pushViewController(statisticsVC, animated: true)
+    }
+    
+    @objc private func  buttonSettingsPressed() {
+        let settingsVC = SettingsViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    @objc private func  buttonRulesPressed() {
+        let rulesVC = RulesViewController()
+        navigationController?.pushViewController(rulesVC, animated: true)
     }
 }

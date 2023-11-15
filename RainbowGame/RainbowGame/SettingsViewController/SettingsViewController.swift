@@ -56,6 +56,10 @@ final class SettingsViewController: UIViewController {
     
     private func setViews() {
         
+        let customLeftButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
+        customLeftButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customLeftButton
+        
         view.backgroundColor = .lightGray
         
         view.addSubview(mainStackView)
@@ -130,6 +134,12 @@ final class SettingsViewController: UIViewController {
     @objc private func speedSliderChanged(_ sender: UISlider) {
         gameSettings.speedNumber = sender.value
         speedNumber.text = String(format: "%.f", sender.value)
+    }
+    
+    //MARK: - Back Button
+    
+    @objc func backButtonTapped() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }
