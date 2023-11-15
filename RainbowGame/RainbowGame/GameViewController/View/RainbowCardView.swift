@@ -18,7 +18,7 @@ class RainbowCardView: UIView {
     private var ifCardBackgroundOn  = true
     private var ifCheckButtonOn = true
     weak var delegate: CheckViewDelegate?
-    private var fontSize = 25
+    private var fontSize = 15
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -57,22 +57,26 @@ class RainbowCardView: UIView {
         }
         setupLabel()
     }
+    
     private func setupLabel() {
         label.text = labelText
-        label.font = .systemFont(ofSize: CGFloat(fontSize))
+        label.font = .boldSystemFont(ofSize: CGFloat(fontSize))
         addSubview(label)
-        if ifCheckButtonOn {
-            label.snp.makeConstraints { make in
-                make.centerY.equalToSuperview()
-                make.leading.equalToSuperview().inset(3)
-            }
-        } else {
-            label.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-            }
+        label.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
-        
+//        if ifCheckButtonOn {
+//            label.snp.makeConstraints { make in
+//                make.centerY.equalToSuperview()
+//                make.leading.equalToSuperview().inset(3)
+//            }
+//        } else {
+//            label.snp.makeConstraints { make in
+//                make.center.equalToSuperview()
+//            }
+//        }
     }
+    
     private func setupCheckButton() {
         guard ifCheckButtonOn else {return}
         addSubview(checkButton)
