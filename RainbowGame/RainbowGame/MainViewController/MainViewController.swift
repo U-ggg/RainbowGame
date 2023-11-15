@@ -66,8 +66,26 @@ final class MainViewController: UIViewController {
             make.left.right.equalToSuperview().inset(10)
             make.top.equalToSuperview().inset(50)
             make.height.equalTo(200)
-            
         }
+        
+        let rainbowLabel: UILabel = {
+            let label = UILabel()
+            label.text = "Игра Радуга"
+            label.textAlignment = .center
+            label.font = .boldSystemFont(ofSize: 32)
+//            label.backgroundColor = .red
+            return label
+        }()
+        
+        view.addSubview(rainbowLabel)
+        rainbowLabel.snp.makeConstraints {make in
+            make.centerX.equalToSuperview()
+            make.width.equalTo(300)
+            make.top.equalTo(rainbowImage.snp.bottom).offset(20)
+            make.height.equalTo(100)
+        }
+        
+        
         let newGameButton: UIButton = {
             let button = UIButton()
             button.layer.cornerRadius = 10
@@ -84,7 +102,7 @@ final class MainViewController: UIViewController {
         newGameButton.snp.makeConstraints {make in
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
-            make.top.equalTo(rainbowImage.snp.bottom).offset(20)
+            make.top.equalTo(rainbowLabel.snp.bottom).offset(20)
             make.height.equalTo(56)
         }
 
