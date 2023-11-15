@@ -15,13 +15,14 @@ final class GameViewController: UIViewController {
     var timer: Timer?
     var secondsPassed: Int = 0
     var isTimerPaused: Bool = false
+    var isRandomLocationOn: Bool = true
     let gameTime = 120
-    let updateTime = 20
+    var updateTime = 20
     lazy var updateButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Далее", for: .normal)
+        button.setTitle("X2", for: .normal)
         button.backgroundColor = .systemIndigo
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = 40
         button.addTarget(self, action: #selector(nextCards) , for: .touchUpInside)
         return button
     }()
@@ -43,18 +44,30 @@ final class GameViewController: UIViewController {
         let colors = colorSelection.gameColorSelection(gameColors: ColorModel.gameColors)
         var top = 120
         for i in 0...colors.count - 1 {
-            let leading = Int.random(in: 20...150)
             let card = RainbowCardView(cardBackgroundColor: colors[i].1 , labelText: colors[i].0)
             card.delegate = self
             view.addSubview(card)
-            card.snp.makeConstraints { make in
-                make.top.equalTo(top)
-                make.leading.equalTo(leading)
-                make.height.equalTo(44)
-                make.width.equalTo(200)
-            }
+            ifRandomLocationOn(top: top, card: card)
             top += (Int(view.frame.height) - 120) / 7
             cardViews.append(card)
+        }
+    }
+    
+    private func ifRandomLocationOn(top : Int, card: RainbowCardView) {
+        if isRandomLocationOn {
+            let leading = Int.random(in: 20...150)
+            card.snp.makeConstraints { make in
+                make.leading.equalTo(leading)
+            }
+        } else {
+            card.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+            }
+        }
+        card.snp.makeConstraints { make in
+            make.top.equalTo(top)
+            make.height.equalTo(44)
+            make.width.equalTo(200)
         }
     }
     
@@ -81,10 +94,10 @@ final class GameViewController: UIViewController {
     private func setupButton() {
         view.addSubview(updateButton)
         updateButton.snp.makeConstraints { make in
-            make.width.equalTo(view.frame.width - 80)
-            make.height.equalTo(60)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.centerX.equalToSuperview()
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(15)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(50)
         }
     }
     
@@ -100,8 +113,11 @@ final class GameViewController: UIViewController {
     }
     
     @objc func nextCards() {
-        cardViews.forEach { $0.removeFromSuperview() }
-        setupCards()
+        guard updateTime > 2 else { 
+            updateButton.isHidden = true
+            return
+        }
+       updateTime /= 2
     }
     
     @objc func backButtonTapped() {
