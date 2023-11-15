@@ -22,13 +22,13 @@ final class SettingsViewController: UIViewController {
     private let timeStackView = UIStackView(spacing: 10)
     private let timeSlider = UISlider(maximumValue: 22)
     private let timeTextLabel = UILabel(text: "время игры, мин", fontSize: 15)
-    private let timeNumber = UILabel(text: "11", fontSize: 20)
+    private let timeNumber = UILabel(text: "0", fontSize: 20)
     
     private let speedView = UIView(backgroundColor: .white)
     private let speedStackView = UIStackView(spacing: 10)
     private let speedLabel = UILabel(text: "скорость смены заданий, сек", fontSize: 15)
     private let speedSlider = UISlider(maximumValue: 4)
-    private let speedNumber = UILabel(text: "2", fontSize: 20)
+    private let speedNumber = UILabel(text: "0", fontSize: 20)
     
     private let substrateView = UIView(backgroundColor: .white)
     private let substrateStackView = UIStackView(spacing: 50)
@@ -38,6 +38,10 @@ final class SettingsViewController: UIViewController {
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
+    
+    // MARK: - Private Properties
+    
+    private let gameSettings = SettingsManager.shared
     
     // MARK: - Life Cycle
     
@@ -74,6 +78,10 @@ final class SettingsViewController: UIViewController {
         
         substrateStackView.addArrangedSubview(substrateLabel)
         substrateStackView.addArrangedSubview(switchSubstrate)
+        
+        timeSlider.addTarget(self, action: #selector(timeSliderChanged), for: .valueChanged)
+        speedSlider.addTarget(self, action: #selector(speedSliderChanged), for: .valueChanged)
+        
     }
     
     // MARK: - Setup Constraints
@@ -97,16 +105,31 @@ final class SettingsViewController: UIViewController {
             timeStackView.trailingAnchor.constraint(equalTo: timeView.trailingAnchor, constant: -10),
             timeStackView.bottomAnchor.constraint(equalTo: timeView.safeAreaLayoutGuide.bottomAnchor),
             
+            timeNumber.widthAnchor.constraint(equalToConstant: 25),
+            
             speedStackView.topAnchor.constraint(equalTo: speedView.safeAreaLayoutGuide.topAnchor),
             speedStackView.leadingAnchor.constraint(equalTo: speedView.leadingAnchor, constant: 10),
             speedStackView.trailingAnchor.constraint(equalTo: speedView.trailingAnchor, constant: -10),
             speedStackView.bottomAnchor.constraint(equalTo: speedView.safeAreaLayoutGuide.bottomAnchor),
+            
+            speedNumber.widthAnchor.constraint(equalToConstant: 25),
             
             substrateStackView.topAnchor.constraint(equalTo: substrateView.safeAreaLayoutGuide.topAnchor),
             substrateStackView.leadingAnchor.constraint(equalTo: substrateView.leadingAnchor, constant: 10),
             substrateStackView.trailingAnchor.constraint(equalTo: substrateView.trailingAnchor, constant: -10),
             substrateStackView.bottomAnchor.constraint(equalTo: substrateView.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    // MARK: - Slider Actions
+    
+    @objc private func timeSliderChanged(_ sender: UISlider) {
+        gameSettings.timeNumber = sender.value
+        timeNumber.text = String(format: "%.f", sender.value)
+    }
+    
+    @objc private func speedSliderChanged(_ sender: UISlider) {
+        gameSettings.speedNumber = sender.value
+        speedNumber.text = String(format: "%.f", sender.value)
     }
     
 }
@@ -138,7 +161,7 @@ extension UISlider {
         self .init()
         self.minimumTrackTintColor = .orange
         self.maximumValue = maximumValue
-        self.minimumValue = 1
+        self.minimumValue = 0
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
@@ -155,5 +178,4 @@ extension UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
-
 
