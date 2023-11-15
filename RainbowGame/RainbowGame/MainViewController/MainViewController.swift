@@ -72,7 +72,9 @@ final class MainViewController: UIViewController {
             let label = UILabel()
             label.text = "Игра Радуга"
             label.textAlignment = .center
-            label.font = .boldSystemFont(ofSize: 32)
+            label.font = .boldSystemFont(ofSize: 40)
+            label.textColor = .black
+            label.numberOfLines = 0
 //            label.backgroundColor = .red
             return label
         }()
@@ -80,8 +82,8 @@ final class MainViewController: UIViewController {
         view.addSubview(rainbowLabel)
         rainbowLabel.snp.makeConstraints {make in
             make.centerX.equalToSuperview()
-            make.width.equalTo(300)
-            make.top.equalTo(rainbowImage.snp.bottom).offset(20)
+            make.width.equalTo(150)
+            make.top.equalTo(rainbowImage.snp.bottom).offset(5)
             make.height.equalTo(100)
         }
         
@@ -102,7 +104,7 @@ final class MainViewController: UIViewController {
         newGameButton.snp.makeConstraints {make in
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
-            make.top.equalTo(rainbowLabel.snp.bottom).offset(20)
+            make.top.equalTo(rainbowLabel.snp.bottom).offset(30)
             make.height.equalTo(56)
         }
 
