@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63240B382B024B2600D32096 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63240B372B024B2600D32096 /* TabBarViewController.swift */; };
+		63240B3A2B024FD200D32096 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63240B392B024FD200D32096 /* Extensions.swift */; };
 		EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D912B010F03003E28E4 /* AppDelegate.swift */; };
 		EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D932B010F03003E28E4 /* SceneDelegate.swift */; };
 		EB559D9B2B010F04003E28E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB559D9A2B010F04003E28E4 /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63240B372B024B2600D32096 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		63240B392B024FD200D32096 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EB559D8E2B010F03003E28E4 /* RainbowGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB559D912B010F03003E28E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB559D932B010F03003E28E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		EB559D902B010F03003E28E4 /* RainbowGame */ = {
 			isa = PBXGroup;
 			children = (
+				63240B392B024FD200D32096 /* Extensions.swift */,
+				63240B372B024B2600D32096 /* TabBarViewController.swift */,
 				EB559DA52B010F43003E28E4 /* App */,
 				EB559DA72B01101F003E28E4 /* MainViewController */,
 				EB559DA82B011028003E28E4 /* GameViewController */,
@@ -203,11 +209,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB7419C22B01515200B48D3E /* RulesViewController.swift in Sources */,
+				63240B3A2B024FD200D32096 /* Extensions.swift in Sources */,
 				EB7419BC2B01510800B48D3E /* GameViewController.swift in Sources */,
 				EB7419BA2B0150E600B48D3E /* MainViewController.swift in Sources */,
 				EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */,
 				EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */,
 				EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */,
+				63240B382B024B2600D32096 /* TabBarViewController.swift in Sources */,
 				EB7419C02B01514100B48D3E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
