@@ -81,8 +81,10 @@ final class GameViewController: UIViewController {
     
     private func setupNavBar() {
         title = formatTime(seconds: gameTime)
-        let customLeftButton = UIBarButtonItem(image: UIImage(systemName: "arrowshape.backward.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
-        let customRightButton = UIBarButtonItem(image: UIImage(systemName: "pause.fill"), style: .plain, target: self, action: #selector(pauseButtonTapped))
+        let customLeftButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
+        let customRightButton = UIBarButtonItem(image: UIImage(named: "pauseButton"), style: .plain, target: self, action: #selector(pauseButtonTapped))
+        customLeftButton.tintColor = .black
+        customRightButton.tintColor = .black
         navigationItem.leftBarButtonItem = customLeftButton
         navigationItem.rightBarButtonItem = customRightButton
         navigationItem.rightBarButtonItem?.isSelected = false
@@ -113,24 +115,24 @@ final class GameViewController: UIViewController {
     }
     
     @objc func nextCards() {
-        guard updateTime > 2 else { 
+        guard updateTime > 2 else {
             updateButton.isHidden = true
             return
         }
-       updateTime /= 2
+        updateTime /= 2
     }
     
     @objc func backButtonTapped() {
-        
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func pauseButtonTapped() {
         isTimerPaused.toggle()
         guard let isSelected = navigationItem.rightBarButtonItem?.isSelected else {return}
         if !isSelected {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "play.fill")
+            navigationItem.rightBarButtonItem?.image = UIImage(named: "playButton")
         } else {
-            navigationItem.rightBarButtonItem?.image = UIImage(systemName: "pause.fill")
+            navigationItem.rightBarButtonItem?.image = UIImage(named: "pauseButton")
         }
         navigationItem.rightBarButtonItem?.isSelected.toggle()
     }
