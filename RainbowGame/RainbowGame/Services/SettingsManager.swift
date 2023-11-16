@@ -6,19 +6,28 @@
 //
 
 final class SettingsManager {
-   static let shared = SettingsManager()
-   
-   private init() {}
-   
-   var timeNumber: Float = 0.0
-   var speedNumber: Float = 0.0
-   
-   func updateTimeNumber(value: Float) {
-       timeNumber = value
-   }
-   
-   func updateSpeedNumber(value: Float) {
-       speedNumber = value
-   }
+    static let shared = SettingsManager()
+    
+    private init() {}
+    
+    var timeNumber: Int = 1
+    var speedNumber: Int = 1
+    
+    var substrateSwitchStatus: Bool = false
+    var gameCheckSwitchStatus: Bool = false
+    
+    func updateTimeNumber(value: Int) {
+        timeNumber = value
+    }
+    
+    func updateSpeedNumber(value: Int) {
+        speedNumber = value
+    }
+    
+    func convertMinutesToSeconds(minutes: Int) -> Int {
+        let seconds = minutes * 60
+        return seconds
+    }
+    
     
 }
