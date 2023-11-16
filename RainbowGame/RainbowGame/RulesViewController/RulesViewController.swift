@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
  class RulesViewController: UIViewController {
     
      private let backgoundView: UIView = {
          let view = UIView()
-         view.backgroundColor = .red
-         view.translatesAutoresizingMaskIntoConstraints = false
+         view.backgroundColor = .white
          return view
      }()
      
@@ -20,8 +20,7 @@ import UIKit
          let label = UILabel()
          label.numberOfLines = 0
          label.textAlignment = .center
-         label.textColor = .red
-         //label.textColor = UIColor(red: 190, green: 46, blue: 106, alpha: 1)
+         label.textColor = UIColor(red: 190/255, green: 46/255, blue: 106/255, alpha: 1)
          label.font = .systemFont(ofSize: 24, weight: .regular)
          label.text = "ПРАВИЛА ИГРЫ"
          return label
@@ -37,16 +36,12 @@ import UIKit
          label.textColor = .black
          label.font = .systemFont(ofSize: 20, weight: .regular)
          label.attributedText = attributedString
+         label.adjustsFontSizeToFitWidth = true
          return label
      }()
      
      private let labelText2: UILabel = {
-         let text = """
-Нужно произнести вслух цвет слова (если опция «подложка для букв» выключена) или цвет фона, на котором написано слово (если опция «подложка для букв» включена):
-говорим «зеленый».
-
-         В игре можно изменять скорость от 1x до 5x. А так же длительность игры.
-"""
+         let text = "Нужно произнести вслух цвет слова (если опция «подложка для букв» выключена) или цвет фона, на котором написано слово (если опция «подложка для букв» включена): говорим «зеленый». \n\nВ игре можно изменять скорость от 1x до 5x. А так же длительность игры."
          let attributedString = NSMutableAttributedString(string: text)
          attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: NSRange(location: 161, length: 17))
          let label = UILabel()
@@ -55,6 +50,7 @@ import UIKit
          label.textColor = .black
          label.font = .systemFont(ofSize: 20, weight: .regular)
          label.attributedText = attributedString
+         label.adjustsFontSizeToFitWidth = true
          return label
      }()
      
@@ -78,33 +74,114 @@ import UIKit
          return label
      }()
      
+     private let labelUnderlayOffExample: UILabel = {
+         let label = UILabel()
+         label.numberOfLines = 0
+         label.textAlignment = .center
+         label.textColor = .green
+         label.font = .systemFont(ofSize: 20, weight: .regular)
+         label.text = "синий"
+         label.layer.shadowColor = CGColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
+         label.layer.shadowOffset.height = 4
+         label.layer.shadowOpacity = 2
+         return label
+     }()
+     
+     private let labelUnderlayOnExample: UILabel = {
+         let label = UILabel()
+         label.backgroundColor = .green
+         label.numberOfLines = 0
+         label.textAlignment = .center
+         label.textColor = .white
+         label.font = .systemFont(ofSize: 20, weight: .regular)
+         label.text = "синий"
+        // label.text.
+         label.layer.shadowColor = CGColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
+         label.layer.shadowOffset.height = 4
+         label.layer.shadowOpacity = 2
+         label.layer.masksToBounds = true
+         label.layer.cornerRadius = 10
+         return label
+     }()
+     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
      
-//     override func viewDidLayoutSubviews() {
-//         super.viewDidLayoutSubviews()
-//
-////         labelRules.frame = CGRect(x: 75, y: 176, width: 225, height: 21)
-////         labelText1.frame = CGRect(x: 66, y: 197, width: 263, height: 143)
-////         labelText2.frame = CGRect(x: 66, y: 446, width: 258, height: 303)
-////         labelUnderlayOff.frame = CGRect(x: 52, y: 350, width: 118, height: 20)
-////         labelUnderlayOn.frame = CGRect(x: 197, y: 350, width: 118, height: 20)
-//     }
-     
      func setupUI() {
         
-         view.backgroundColor = .white
+         view.backgroundColor = .lightGray
          title = "Помощь"
          view.addSubview(backgoundView)
-         NSLayoutConstraint.activate([
-            view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40),
-            view.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
-            view.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
-            view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 63)
-         ])
+         backgoundView.addSubview(labelText2)
+         backgoundView.addSubview(labelUnderlayOnExample)
+         backgoundView.addSubview(labelUnderlayOffExample)
+         backgoundView.addSubview(labelUnderlayOn)
+         backgoundView.addSubview(labelUnderlayOff)
+         backgoundView.addSubview(labelText1)
+         backgoundView.addSubview(labelRules)
+         
+         backgoundView.snp.makeConstraints { make in
+             make.left.right.equalToSuperview().inset(40)
+             make.top.equalTo(view.snp.top).inset(170)
+             make.bottom.equalTo(view.snp.bottom).inset(40)
+         }
+         
+         labelText2.snp.makeConstraints { make in
+             make.left.right.equalToSuperview().inset(20)
+             make.top.equalToSuperview().inset(286)
+             make.bottom.equalTo(backgoundView.snp.bottom).inset(10)
+             
+         }
+         
+         labelUnderlayOffExample.snp.makeConstraints { make in
+             make.left.equalToSuperview().inset(35)
+             make.bottom.equalTo(labelText2.snp.top).inset(-30)
+             make.top.equalToSuperview().inset(220)
+         }
+         
+         labelUnderlayOnExample.snp.makeConstraints { make in
+             make.right.equalToSuperview().inset(22)
+             make.bottom.equalTo(labelText2.snp.top).inset(-30)
+             make.top.equalToSuperview().inset(220)
+             make.width.equalTo(labelUnderlayOn).inset(0)
+            // make.height.size.equalTo(labelUnderlayOn).inset(10)
+         }
+         
+         labelUnderlayOff.snp.makeConstraints { make in
+             make.left.equalToSuperview().inset(22)
+             make.bottom.equalTo(labelUnderlayOffExample.snp.top).inset(-10)
+             make.top.equalToSuperview().inset(190)
+         }
+         
+         labelUnderlayOn.snp.makeConstraints { make in
+             make.right.equalToSuperview().inset(22)
+             make.bottom.equalTo(labelUnderlayOnExample.snp.top).inset(-10)
+             make.top.equalToSuperview().inset(190)
+         }
+         
+         labelText1.snp.makeConstraints { make in
+             make.left.right.equalToSuperview().inset(20)
+             make.bottom.equalTo(labelUnderlayOff.snp.top).inset(-10)
+             make.top.equalToSuperview().inset(45)
+         }
+
+         labelRules.snp.makeConstraints { make in
+             make.left.right.equalToSuperview().inset(35)
+             make.top.equalTo(backgoundView.snp.top).inset(16)
+             make.bottom.equalTo(labelText1.snp.top).inset(-10)
+         }
+
+         
+         
+//         NSLayoutConstraint.activate([
+//            view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40),
+//            view.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
+//            view.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
+//            view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 63)
+//         ])
 //         view.addSubview(labelRules)
 //         view.addSubview(labelText1)
 //         view.addSubview(labelText2)
