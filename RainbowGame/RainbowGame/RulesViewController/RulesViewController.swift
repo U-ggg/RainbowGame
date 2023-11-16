@@ -89,18 +89,23 @@ import SnapKit
      
      private let labelUnderlayOnExample: UILabel = {
          let label = UILabel()
+         
+         label.layer.masksToBounds = true
+         label.layer.cornerRadius = 10
          label.backgroundColor = .green
-         label.numberOfLines = 0
+         //    label.numberOfLines = 0
          label.textAlignment = .center
          label.textColor = .white
          label.font = .systemFont(ofSize: 20, weight: .regular)
          label.text = "синий"
-        // label.text.
-         label.layer.shadowColor = CGColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
-         label.layer.shadowOffset.height = 4
-         label.layer.shadowOpacity = 2
-         label.layer.masksToBounds = true
-         label.layer.cornerRadius = 10
+         //         label.layer.shadowColor = CGColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
+         //         label.layer.shadowOffset.height = 4
+         //         label.layer.shadowOpacity = 2
+         label.layer.shadowColor = UIColor.black.cgColor
+         label.layer.shadowOffset = CGSize(width: 0, height: 10.0)
+         label.layer.shadowOpacity = 0.8
+         label.layer.shadowRadius = 10
+         //label.clipsToBounds = true
          return label
      }()
      
@@ -108,12 +113,12 @@ import SnapKit
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupNavigationBar()
     }
      
      func setupUI() {
         
          view.backgroundColor = .lightGray
-         title = "Помощь"
          view.addSubview(backgoundView)
          backgoundView.addSubview(labelText2)
          backgoundView.addSubview(labelUnderlayOnExample)
@@ -133,7 +138,6 @@ import SnapKit
              make.left.right.equalToSuperview().inset(20)
              make.top.equalToSuperview().inset(286)
              make.bottom.equalTo(backgoundView.snp.bottom).inset(10)
-             
          }
          
          labelUnderlayOffExample.snp.makeConstraints { make in
@@ -147,7 +151,6 @@ import SnapKit
              make.bottom.equalTo(labelText2.snp.top).inset(-30)
              make.top.equalToSuperview().inset(220)
              make.width.equalTo(labelUnderlayOn).inset(0)
-            // make.height.size.equalTo(labelUnderlayOn).inset(10)
          }
          
          labelUnderlayOff.snp.makeConstraints { make in
@@ -173,26 +176,25 @@ import SnapKit
              make.top.equalTo(backgoundView.snp.top).inset(16)
              make.bottom.equalTo(labelText1.snp.top).inset(-10)
          }
-
-         
-         
-//         NSLayoutConstraint.activate([
-//            view.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40),
-//            view.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
-//            view.topAnchor.constraint(equalTo: view.topAnchor, constant: 160),
-//            view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 63)
-//         ])
-//         view.addSubview(labelRules)
-//         view.addSubview(labelText1)
-//         view.addSubview(labelText2)
-//         view.addSubview(labelUnderlayOff)
-//         view.addSubview(labelUnderlayOn)
-         
      }
+     
+     func setupNavigationBar() {
+         title = "Помощь"
+         navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 29)
+         ]
+         let backButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(tapBackButton))
+         backButton.tintColor = UIColor.black
+         navigationItem.leftBarButtonItem = backButton
+     }
+     
+     @objc private func tapBackButton() {
+         navigationController?.popToRootViewController(animated: true)
+     }
+     
     
     @objc private func viewRules() {
         let vc = RulesViewController()
-        //vc.navigationItem.largeTitleDisplayMode = .never
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
