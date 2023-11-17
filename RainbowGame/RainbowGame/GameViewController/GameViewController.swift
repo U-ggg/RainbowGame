@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 final class GameViewController: UIViewController {
+    
+    //MARK: - Data
     let background = Background()
     var cardViews: [RainbowCardView] = []
     let colorSelection = ColorSelection()
@@ -16,8 +18,11 @@ final class GameViewController: UIViewController {
     var secondsPassed: Int = 0
     var isTimerPaused: Bool = false
     var isRandomLocationOn: Bool = true
-    let gameTime = 120
-    var updateTime = 20
+    var isContinueGame: Bool?
+    var gameTime: Int = SavingManager.getValueOfInt(forKey: .timeNumber)
+    var updateTime: Int = SavingManager.getValueOfInt(forKey: .speedNumber)
+    
+    //MARK: - UI Elements
     lazy var updateButton: UIButton = {
         let button = UIButton()
         button.setTitle("X2", for: .normal)
@@ -27,19 +32,22 @@ final class GameViewController: UIViewController {
         return button
     }()
     
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        ifGameContinue()
         setupBackGround()
         setupNavBar()
         setupCards()
         setupButton()
         startTimer()
     }
-    
+    //MARK: - viewDidDisappear
     override func viewDidDisappear(_ animated: Bool) {
         timer?.invalidate()
     }
     
+    //MARK: - SetupScreen
     private func setupCards() {
         let colors = colorSelection.gameColorSelection(gameColors: ColorModel.gameColors)
         var top = 120
@@ -103,6 +111,7 @@ final class GameViewController: UIViewController {
         }
     }
     
+    //MARK: - Logic
     private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
@@ -114,6 +123,12 @@ final class GameViewController: UIViewController {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
+    private func ifGameContinue() {
+        guard let unwrappedBool = isContinueGame, unwrappedBool else {return}
+        gameTime = SavingManager.getValueOfInt(forKey: .timeLeft)
+    }
+    
+    //MARK: - Targets
     @objc func nextCards() {
         guard updateTime > 2 else {
             updateButton.isHidden = true
@@ -124,6 +139,8 @@ final class GameViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
+        SavingManager.saveValue(value: true, forKey: .ifContinueGame)
+        SavingManager.saveValue(value: gameTime - secondsPassed, forKey: .timeLeft)
     }
     
     @objc func pauseButtonTapped() {
@@ -155,15 +172,9 @@ final class GameViewController: UIViewController {
     }
 }
 
-
+//MARK: - Extension
 extension GameViewController: CheckViewDelegate {
     func button() {
         print("Check +1")
     }
-    
-    
 }
-//
-//#Preview {
-//    GameViewController()
-//}

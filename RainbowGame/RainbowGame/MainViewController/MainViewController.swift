@@ -95,6 +95,11 @@ final class MainViewController: UIViewController {
         return button
     }()
     
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        isContinueButtonAvailable()
+    }
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,14 +163,24 @@ final class MainViewController: UIViewController {
         }
     }
     
+    //MARK: - Functions
+    private func isContinueButtonAvailable() {
+        let ifContinueGame = SavingManager.getValueOfBool(forKey: .ifContinueGame)
+        ifContinueGame 
+        ? (continueGameButton.isEnabled = true)
+        : (continueGameButton.isEnabled = false)
+    }
+    
     //MARK: - Targets
     @objc private func  buttonNewGamePressed() {
         let newGameVC = GameViewController()
+        newGameVC.isContinueGame = false
         navigationController?.pushViewController(newGameVC, animated: true)
     }
     
     @objc private func  buttonContinuePressed() {
         let continueGameVC = GameViewController()
+        continueGameVC.isContinueGame = true
         navigationController?.pushViewController(continueGameVC, animated: true)
     }
     
