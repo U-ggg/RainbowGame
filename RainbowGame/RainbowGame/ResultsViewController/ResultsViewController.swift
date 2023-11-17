@@ -73,14 +73,14 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SettingsManager.shared.resutlsModel.count
+        return ResultsManager.shared.resutlsModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ResultCell else {
             return UICollectionViewCell()
         }
-        cell.configure(SettingsManager.shared.resutlsModel[indexPath.row], number: indexPath.row)
+        cell.configure(ResultsManager.shared.resutlsModel[indexPath.row], number: indexPath.row)
         return cell
     }
 
@@ -101,7 +101,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
     }
 
     @objc private func clearButtonTapped() {
-        SettingsManager.shared.resutlsModel = []
+        ResultsManager.shared.resutlsModel = []
         collectionView.reloadData()
     }
 }

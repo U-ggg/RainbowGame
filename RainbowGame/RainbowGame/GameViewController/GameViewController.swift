@@ -21,6 +21,7 @@ final class GameViewController: UIViewController {
     var isContinueGame: Bool?
     var gameTime: Int = SavingManager.getValueOfInt(forKey: .timeNumber)
     var updateTime: Int = SavingManager.getValueOfInt(forKey: .speedNumber)
+    var answerCheck: Int?
     
     //MARK: - UI Elements
     lazy var updateButton: UIButton = {
@@ -36,6 +37,7 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ifGameContinue()
+        ifCheckButtonOn()
         setupBackGround()
         setupNavBar()
         setupCards()
@@ -128,6 +130,12 @@ final class GameViewController: UIViewController {
         gameTime = SavingManager.getValueOfInt(forKey: .timeLeft)
     }
     
+    private func ifCheckButtonOn() {
+        let ifCheckButtonOn = SavingManager.getValueOfBool(forKey: .gameCheckSwitchStatus)
+        guard ifCheckButtonOn else {return}
+        answerCheck = 0
+    }
+    
     //MARK: - Targets
     @objc func nextCards() {
         guard updateTime > 2 else {
@@ -163,6 +171,10 @@ final class GameViewController: UIViewController {
         secondsPassed += 1
         title = formatTime(seconds: gameTime - secondsPassed)
         if secondsPassed == gameTime {
+            ResultsManager.shared.saveResult(
+        time: gameTime / 60,
+        speed: updateTime,
+        answer: answerCheck)
             timer?.invalidate()
             present(ResultsViewController(), animated: true)
         } else if secondsPassed % updateTime == 0 {
@@ -175,6 +187,8 @@ final class GameViewController: UIViewController {
 //MARK: - Extension
 extension GameViewController: CheckViewDelegate {
     func button() {
-        print("Check +1")
+        guard  answerCheck != nil else {return}
+        answerCheck! += 1
+        print("+1")
     }
 }

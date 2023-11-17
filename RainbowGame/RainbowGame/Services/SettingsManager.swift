@@ -10,7 +10,6 @@ final class SettingsManager {
     
     private init() {}
     
-    var resutlsModel = [ResutlsModel(time: 15, speed: 2, answer: 5), ResutlsModel(time: 25, speed: 1, answer: 7)]
     
     var timeNumber: Int = 1
     var speedNumber: Int = 1
@@ -30,9 +29,5 @@ final class SettingsManager {
         let seconds = minutes * 60
         return seconds
     }
-    
-    //MARK: - SaveResultModel
-    func saveResult(time: Int, speed: Int, answer: Int) {
-        resutlsModel.append(ResutlsModel(time: time, speed: speed, answer: answer))
-    }
+
 }
