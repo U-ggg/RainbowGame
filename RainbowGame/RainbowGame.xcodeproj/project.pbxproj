@@ -13,6 +13,7 @@
 		0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EAD2B02B514002B6DFB /* Colors.swift */; };
 		0B7D0EB12B02BCD9002B6DFB /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EB02B02BCD9002B6DFB /* Background.swift */; };
 		0BFB57F52B0757A000F9C25A /* SavingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFB57F42B0757A000F9C25A /* SavingManager.swift */; };
+		0BFB57F72B07798900F9C25A /* ResultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFB57F62B07798900F9C25A /* ResultsManager.swift */; };
 		79E442642B041839009365F7 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E442632B041839009365F7 /* SettingsManager.swift */; };
 		EB4DD0BF2B076D4400381151 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0BE2B076D4400381151 /* ResultCell.swift */; };
 		EB4DD0C12B076E2500381151 /* ResutlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0C02B076E2500381151 /* ResutlsModel.swift */; };
@@ -35,6 +36,7 @@
 		0B7D0EAD2B02B514002B6DFB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0B7D0EB02B02BCD9002B6DFB /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		0BFB57F42B0757A000F9C25A /* SavingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingManager.swift; sourceTree = "<group>"; };
+		0BFB57F62B07798900F9C25A /* ResultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsManager.swift; sourceTree = "<group>"; };
 		79E442632B041839009365F7 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		EB4DD0BE2B076D4400381151 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
 		EB4DD0C02B076E2500381151 /* ResutlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResutlsModel.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				79E442632B041839009365F7 /* SettingsManager.swift */,
 				0BFB57F42B0757A000F9C25A /* SavingManager.swift */,
+				0BFB57F62B07798900F9C25A /* ResultsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				0B7D0EAA2B02B502002B6DFB /* ColorModel.swift in Sources */,
 				EB7419BA2B0150E600B48D3E /* MainViewController.swift in Sources */,
 				EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */,
+				0BFB57F72B07798900F9C25A /* ResultsManager.swift in Sources */,
 				0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */,
 				EB4DD0C12B076E2500381151 /* ResutlsModel.swift in Sources */,
 				0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */,

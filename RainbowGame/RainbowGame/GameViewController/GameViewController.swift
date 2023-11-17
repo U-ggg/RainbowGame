@@ -21,14 +21,15 @@ final class GameViewController: UIViewController {
     var isContinueGame: Bool?
     var gameTime: Int = SavingManager.getValueOfInt(forKey: .timeNumber)
     var updateTime: Int = SavingManager.getValueOfInt(forKey: .speedNumber)
+    var answerCheck: Int?
+    var speed = 0
     
     //MARK: - UI Elements
     lazy var updateButton: UIButton = {
         let button = UIButton()
-        button.setTitle("X2", for: .normal)
         button.backgroundColor = .systemIndigo
         button.layer.cornerRadius = 40
-        button.addTarget(self, action: #selector(nextCards) , for: .touchUpInside)
+//        button.addTarget(self, action: #selector(nextCards) , for: .touchUpInside)
         return button
     }()
     
@@ -36,10 +37,12 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ifGameContinue()
+        ifCheckButtonOn()
         setupBackGround()
         setupNavBar()
         setupCards()
         setupButton()
+        setupButtonTitle()
         startTimer()
     }
     //MARK: - viewDidDisappear
@@ -128,14 +131,39 @@ final class GameViewController: UIViewController {
         gameTime = SavingManager.getValueOfInt(forKey: .timeLeft)
     }
     
-    //MARK: - Targets
-    @objc func nextCards() {
-        guard updateTime > 2 else {
-            updateButton.isHidden = true
-            return
-        }
-        updateTime /= 2
+    private func ifCheckButtonOn() {
+        let ifCheckButtonOn = SavingManager.getValueOfBool(forKey: .gameCheckSwitchStatus)
+        guard ifCheckButtonOn else {return}
+        answerCheck = 0
     }
+    
+    private func setupButtonTitle() {
+        switch updateTime {
+        case 1 : 
+            updateButton.setTitle("X4", for: .normal)
+            speed = 4
+        case 2 :  
+            updateButton.setTitle("X3", for: .normal)
+            speed = 3
+        case 3 :  
+            updateButton.setTitle("X2", for: .normal)
+            speed = 2
+        case 4 :  
+            updateButton.setTitle("X1", for: .normal)
+            speed = 1
+        default:
+            break
+        }
+    }
+    
+    //MARK: - Targets
+//    @objc func nextCards() {
+//        guard updateTime > 2 else {
+//            updateButton.isHidden = true
+//            return
+//        }
+//        updateTime /= 2
+//    }
     
     @objc func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
@@ -163,6 +191,10 @@ final class GameViewController: UIViewController {
         secondsPassed += 1
         title = formatTime(seconds: gameTime - secondsPassed)
         if secondsPassed == gameTime {
+            ResultsManager.shared.saveResult(
+        time: gameTime / 60,
+        speed: speed,
+        answer: answerCheck)
             timer?.invalidate()
             present(ResultsViewController(), animated: true)
         } else if secondsPassed % updateTime == 0 {
@@ -175,6 +207,8 @@ final class GameViewController: UIViewController {
 //MARK: - Extension
 extension GameViewController: CheckViewDelegate {
     func button() {
-        print("Check +1")
+        guard  answerCheck != nil else {return}
+        answerCheck! += 1
+        print("+1")
     }
 }

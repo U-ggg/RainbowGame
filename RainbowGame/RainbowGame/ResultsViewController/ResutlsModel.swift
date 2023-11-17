@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ResutlsModel {
+struct ResutlsModel: Codable {
     let time: Int
     let speed: Int
-    let answer: Int
+    let answer: Int?
 }
