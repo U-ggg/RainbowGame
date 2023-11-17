@@ -15,8 +15,8 @@ protocol CheckViewDelegate: AnyObject {
 class RainbowCardView: UIView {
     private var cardBackgroundColor: UIColor?
     private var labelText: String?
-    private var ifCardBackgroundOn  = true
-    private var ifCheckButtonOn = true
+    private var ifCardBackgroundOn  = SavingManager.getValueOfBool(forKey: .substrateSwitchStatus)
+    private var ifCheckButtonOn = SavingManager.getValueOfBool(forKey: .gameCheckSwitchStatus)
     weak var delegate: CheckViewDelegate?
     private var fontSize = 15
     private let label: UILabel = {
