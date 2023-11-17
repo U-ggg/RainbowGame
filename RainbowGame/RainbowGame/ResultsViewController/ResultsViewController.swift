@@ -8,11 +8,12 @@
 import UIKit
 import SnapKit
 
-class ResultsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+final class ResultsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    //MARK: - ID
     private let cellIdentifier = "ResultCell"
-    private var cellCount = 5 // Начальное количество ячеек
 
+    //MARK: - UI Elements
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -36,18 +37,18 @@ class ResultsViewController: UIViewController, UICollectionViewDataSource, UICol
         return button
     }()
 
+    //MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
-//        addNewCells()
+        
     }
 
+    //MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .lightGray
         title = "Статистика"
-
-        //        Использование системной стрелки
-        //        let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
@@ -69,27 +70,17 @@ class ResultsViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
 
-    private func addNewCells() {
-        cellCount += 1
-        collectionView.reloadData()
-    }
-
     // MARK: - UICollectionViewDataSource
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellCount
+        return SettingsManager.shared.resutlsModel.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ResultCell else {
             return UICollectionViewCell()
         }
-
-        cell.gameNumberLabel.text = "Игра № \(indexPath.item + 1)"
-        cell.gameTimeLabel.text = "Время игры: \(indexPath.item + 1) мин"
-        cell.gameSpeedLabel.text = "Скорость \(indexPath.item + 1)"
-        cell.gameResultLabel.text = "Угадано \(indexPath.item + 1)"
-
+        cell.configure(SettingsManager.shared.resutlsModel[indexPath.row], number: indexPath.row)
         return cell
     }
 
@@ -110,83 +101,9 @@ class ResultsViewController: UIViewController, UICollectionViewDataSource, UICol
     }
 
     @objc private func clearButtonTapped() {
-        cellCount = 0
+        SettingsManager.shared.resutlsModel = []
         collectionView.reloadData()
     }
 }
 
-class ResultCell: UICollectionViewCell {
 
-    let gameNumberLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .systemPink
-        label.textAlignment = .left
-        return label
-    }()
-
-    let gameTimeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.textAlignment = .left
-        return label
-    }()
-    
-    let gameSpeedLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.textAlignment = .right
-        return label
-    }()
-    
-    let gameResultLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: label.font.pointSize)
-        label.textColor = .green
-        label.textAlignment = .right
-        return label
-    }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupCollectionCell()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupCollectionCell() {
-        backgroundColor = .white
-        layer.cornerRadius = 10
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowRadius = 2
-
-        addSubview(gameNumberLabel)
-        addSubview(gameTimeLabel)
-        addSubview(gameSpeedLabel)
-        addSubview(gameResultLabel)
-
-        gameNumberLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(10)
-        }
-
-        gameTimeLabel.snp.makeConstraints { make in
-            make.top.equalTo(gameNumberLabel.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(10)
-        }
-        
-        gameSpeedLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        gameResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(gameSpeedLabel.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-    }
-}

@@ -13,6 +13,8 @@
 		0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EAD2B02B514002B6DFB /* Colors.swift */; };
 		0B7D0EB12B02BCD9002B6DFB /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EB02B02BCD9002B6DFB /* Background.swift */; };
 		79E442642B041839009365F7 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E442632B041839009365F7 /* SettingsManager.swift */; };
+		EB4DD0BF2B076D4400381151 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0BE2B076D4400381151 /* ResultCell.swift */; };
+		EB4DD0C12B076E2500381151 /* ResutlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0C02B076E2500381151 /* ResutlsModel.swift */; };
 		EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D912B010F03003E28E4 /* AppDelegate.swift */; };
 		EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D932B010F03003E28E4 /* SceneDelegate.swift */; };
 		EB559D9E2B010F04003E28E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB559D9C2B010F04003E28E4 /* LaunchScreen.storyboard */; };
@@ -32,6 +34,8 @@
 		0B7D0EAD2B02B514002B6DFB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0B7D0EB02B02BCD9002B6DFB /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		79E442632B041839009365F7 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		EB4DD0BE2B076D4400381151 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
+		EB4DD0C02B076E2500381151 /* ResutlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResutlsModel.swift; sourceTree = "<group>"; };
 		EB559D8E2B010F03003E28E4 /* RainbowGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB559D912B010F03003E28E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB559D932B010F03003E28E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				EB7419BD2B01511A00B48D3E /* ResultsViewController.swift */,
+				EB4DD0BE2B076D4400381151 /* ResultCell.swift */,
+				EB4DD0C02B076E2500381151 /* ResutlsModel.swift */,
 			);
 			path = ResultsViewController;
 			sourceTree = "<group>";
@@ -276,10 +282,12 @@
 				EB7419BA2B0150E600B48D3E /* MainViewController.swift in Sources */,
 				EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */,
 				0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */,
+				EB4DD0C12B076E2500381151 /* ResutlsModel.swift in Sources */,
 				0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */,
 				EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */,
 				EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */,
 				EB7419C02B01514100B48D3E /* SettingsViewController.swift in Sources */,
+				EB4DD0BF2B076D4400381151 /* ResultCell.swift in Sources */,
 				0B7D0EB12B02BCD9002B6DFB /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
