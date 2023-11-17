@@ -7,6 +7,7 @@
 
 import Foundation
 enum SettingKey: String {
+    case firstLaunch
     case timeNumber
     case speedNumber
     case substrateSwitchStatus
@@ -21,11 +22,14 @@ struct SavingManager {
     static let settingManager = SettingsManager.shared
     
     static func saveInitialValues() {
-        saveValue(value: 60, forKey: .timeNumber)
-        saveValue(value: 3, forKey: .speedNumber)
-        saveValue(value: false, forKey: .substrateSwitchStatus)
-        saveValue(value: true, forKey: .gameCheckSwitchStatus)
-        saveValue(value: false, forKey: .ifContinueGame)
+        if !getValueOfBool(forKey: .firstLaunch) {
+            saveValue(value: 60, forKey: .timeNumber)
+            saveValue(value: 3, forKey: .speedNumber)
+            saveValue(value: false, forKey: .substrateSwitchStatus)
+            saveValue(value: true, forKey: .gameCheckSwitchStatus)
+            saveValue(value: false, forKey: .ifContinueGame)
+            saveValue(value: true, forKey: .firstLaunch)
+          }
     }
     
     static func saveSettings() {
