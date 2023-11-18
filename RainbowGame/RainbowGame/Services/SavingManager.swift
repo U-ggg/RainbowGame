@@ -14,9 +14,14 @@ enum SettingKey: String {
     case speedNumber
     case substrateSwitchStatus
     case gameCheckSwitchStatus
+    case colors
+    case textSize
+    case backgroundColor
+    case ifRandomLocation
     case ifContinueGame
     case timeLeft
     case resultsModel
+    case gameColors
 }
 
 //MARK: - SavingManager
@@ -25,15 +30,21 @@ struct SavingManager {
     //MARK: - Properties
     static let userDefaults = UserDefaults.standard
     static let settingManager = SettingsManager.shared
+    static let resultsManager = ResultsManager.shared
     
     //MARK: - Methods
-    static func saveInitialValues() {
-        if !getValueOfBool(forKey: .firstLaunch) {
-            saveValue(value: 60, forKey: .timeNumber)
-            saveValue(value: 3, forKey: .speedNumber)
-            saveValue(value: false, forKey: .substrateSwitchStatus)
-            saveValue(value: true, forKey: .gameCheckSwitchStatus)
-            saveValue(value: false, forKey: .ifContinueGame)
+    static func getInitialValuesFromUD() {
+            if getValueOfBool(forKey: .firstLaunch) {
+                settingManager.timeNumber = getValueOfInt(forKey: .timeNumber)
+                settingManager.speedNumber = getValueOfInt(forKey: .speedNumber)
+                settingManager.gameCheckSwitchStatus = getValueOfBool(forKey: .gameCheckSwitchStatus)
+                settingManager.substrateSwitchStatus = getValueOfBool(forKey: .substrateSwitchStatus)
+                settingManager.sizeOfText = getValueOfInt(forKey: .textSize)
+                settingManager.backgroundColor = getValueOfInt(forKey: .backgroundColor)
+                settingManager.ifRandomLocation = getValueOfBool(forKey: .ifRandomLocation)
+                loadResultsModel()
+                print("Getting")
+            } else {
             saveValue(value: true, forKey: .firstLaunch)
         }
     }
@@ -43,6 +54,12 @@ struct SavingManager {
         saveValue(value: settingManager.speedNumber, forKey: .speedNumber)
         saveValue(value: settingManager.substrateSwitchStatus, forKey: .substrateSwitchStatus)
         saveValue(value: settingManager.gameCheckSwitchStatus, forKey: .gameCheckSwitchStatus)
+        saveValue(value: settingManager.sizeOfText, forKey: .textSize)
+        saveValue(value: settingManager.backgroundColor, forKey: .backgroundColor)
+        saveValue(value: settingManager.ifRandomLocation, forKey: .ifRandomLocation)
+        saveModel(model: ResultsManager.shared.resultsModel, key: .resultsModel)
+        print("Saving")
+//        saveModel(model: ColorModel.gameColors, key: .gameColors)
     }
     
     static func saveValue<T>(value: T, forKey key: SettingKey) {
@@ -57,11 +74,11 @@ struct SavingManager {
         userDefaults.bool(forKey: key.rawValue)
     }
     
-    static func saveResultsModel() {
+    static func saveModel<T: Codable>(model: T, key: SettingKey) {
         do {
             let encoder = JSONEncoder()
-            let encodedData = try encoder.encode(ResultsManager.shared.resultsModel)
-            userDefaults.set(encodedData, forKey: SettingKey.resultsModel.rawValue)
+            let encodedData = try encoder.encode(model)
+            userDefaults.set(encodedData, forKey: key.rawValue)
             print("Модель сохранена")
         } catch {
             print("Не удалось сохранить модель")

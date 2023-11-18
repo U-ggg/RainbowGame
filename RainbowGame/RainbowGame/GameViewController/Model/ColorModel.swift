@@ -8,18 +8,22 @@
 import Foundation
 import UIKit
 
+
 struct ColorModel {
-    static let gameColors: [(String, UIColor)] = [
+    
+    static let gameColorsModel: [(String, UIColor)] = [
         ("Красный", UIColor.red),
         ("Синий", UIColor.blue),
-        ("Зеленый", UIColor.green),
+        ("Голубой", UIColor.lightBlue),
         ("Желтый", UIColor.systemYellow),
-        ("Оранжевый", UIColor.orange),
         ("Фиолетовый", UIColor.purple),
-        ("Розовый", UIColor.systemPink),
+        ("Синий", UIColor.blue),
+        ("Оранжевый", UIColor.orange),
+        ("Красный", UIColor.red),
+        ("Желтый", UIColor.systemYellow),
         ("Черный", UIColor.black),
-        ("Серый", UIColor.gray),
-        ("Коричневый", UIColor.brown),
-        ("Голубой", UIColor.lightBlue)
+        ("Серый", UIColor.gray)
     ]
+    
+    static var gameColors = gameColorsModel
 }

@@ -17,10 +17,10 @@ final class GameViewController: UIViewController {
     var timer: Timer?
     var secondsPassed: Int = 0
     var isTimerPaused: Bool = false
-    var isRandomLocationOn: Bool = true
+    var isRandomLocationOn: Bool = SettingsManager.shared.ifRandomLocation
     var isContinueGame: Bool?
-    var gameTime: Int = SavingManager.getValueOfInt(forKey: .timeNumber)
-    var updateTime: Int = SavingManager.getValueOfInt(forKey: .speedNumber)
+    var gameTime: Int = SettingsManager.shared.timeNumber
+    var updateTime: Int = SettingsManager.shared.speedNumber
     var answerCheck: Int?
     var speed = 0
     

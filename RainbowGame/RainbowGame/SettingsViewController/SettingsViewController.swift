@@ -54,32 +54,32 @@ final class SettingsViewController: UIViewController {
     private let greenCheckBox = UIButton(buttonColor: .green)
     private let systemGreenCheckBox = UIButton(buttonColor: .systemGreen)
     private let pinkCheckBox = UIButton(buttonColor: .systemPink)
-    private let cyanCheckBox = UIButton(buttonColor: .cyan)
+    private let cyanCheckBox = UIButton(buttonColor: .lightBlue)
     private let brownCheckBox = UIButton(buttonColor: .brown)
     private let purpleCheckBox = UIButton(buttonColor: .purple)
     
     private let checkBoxesBottonStackView = UIStackView(spacing: 10, axis: .horizontal, alignment: .center)
     
-    private let blueCheckBox = UIButton(buttonColor: .systemBlue)
+    private let blueCheckBox = UIButton(buttonColor: .blue)
     private let orangeCheckBox = UIButton(buttonColor: .orange)
     private let redCheckBox = UIButton(buttonColor: .red)
-    private let yellowCheckBox = UIButton(buttonColor: .yellow)
+    private let yellowCheckBox = UIButton(buttonColor: .systemYellow)
     private let blackCheckBox = UIButton(buttonColor: .black)
     private let grayCheckBox = UIButton(buttonColor: .gray)
     
-    private let greenVector = UIImageView(vectorIsHidden: true)
-    private let systemGreenVector = UIImageView(vectorIsHidden: true)
-    private let systemPinkVector = UIImageView(vectorIsHidden: true)
-    private let cyanVector = UIImageView(vectorIsHidden: true)
-    private let brownVector = UIImageView(vectorIsHidden: true)
-    private let purpleVector = UIImageView(vectorIsHidden: true)
+    private let greenVector = UIImageView(vectorIsHidden: false)
+    private let systemGreenVector = UIImageView(vectorIsHidden: false)
+    private let systemPinkVector = UIImageView(vectorIsHidden: false)
+    private let cyanVector = UIImageView(vectorIsHidden: false)
+    private let brownVector = UIImageView(vectorIsHidden: false)
+    private let purpleVector = UIImageView(vectorIsHidden: false)
     
-    private let blueVector = UIImageView(vectorIsHidden: true)
-    private let orangeVector = UIImageView(vectorIsHidden: true)
-    private let redVector = UIImageView(vectorIsHidden: true)
-    private let yellowVector = UIImageView(vectorIsHidden: true)
-    private let blackVector = UIImageView(whiteVectorIsHidden: true)
-    private let grayVector = UIImageView(vectorIsHidden: true)
+    private let blueVector = UIImageView(vectorIsHidden: false)
+    private let orangeVector = UIImageView(vectorIsHidden: false)
+    private let redVector = UIImageView(vectorIsHidden: false)
+    private let yellowVector = UIImageView(vectorIsHidden: false)
+    private let blackVector = UIImageView(whiteVectorIsHidden: false)
+    private let grayVector = UIImageView(vectorIsHidden: false)
     
     private let wordSizeView = UIView(backgroundColor: .white)
     private let wordSizeStackView = UIStackView(spacing: 35, axis: .horizontal, alignment: .center)
@@ -99,6 +99,7 @@ final class SettingsViewController: UIViewController {
         element.insertSegment(withTitle: "Серый", at: 1, animated: true)
         element.insertSegment(withTitle: "Белый", at: 2, animated: true)
         element.insertSegment(withTitle: "Черный", at: 3, animated: true)
+        element.addTarget(self, action: #selector(backgroundColorSet(_:)), for: .valueChanged)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -108,8 +109,9 @@ final class SettingsViewController: UIViewController {
     private let wordPositionLabel = UILabel(text: "расположение слова на экране", fontSize: 15)
     private lazy var wordPositionSegmentedControl: UISegmentedControl = {
         let element = UISegmentedControl()
-        element.insertSegment(withTitle: "Случайное", at: 1, animated: true)
-        element.insertSegment(withTitle: "По центру", at: 2, animated: true)
+        element.insertSegment(withTitle: "Случайное", at: 4, animated: true)
+        element.insertSegment(withTitle: "По центру", at: 5, animated: true)
+        element.addTarget(self, action: #selector(randomLocation(_:)), for: .valueChanged)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -132,6 +134,7 @@ final class SettingsViewController: UIViewController {
         
         setViews()
         setConstraints()
+        setupRawValue()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -238,7 +241,7 @@ final class SettingsViewController: UIViewController {
         
         let checkboxes = [
             greenCheckBox,
-            systemGreenCheckBox,
+            //systemGreenCheckBox,
             pinkCheckBox,
             cyanCheckBox,
             brownCheckBox,
@@ -255,9 +258,21 @@ final class SettingsViewController: UIViewController {
             checkbox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
         }
         
-        backgroundColorSegmentedControl.addTarget(self, action: #selector(backgroundColorSegmentedControlChanged), for: .valueChanged)
-        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
-        wordPositionSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+        greenCheckBox.tag = 0
+        pinkCheckBox.tag = 1
+        cyanCheckBox.tag = 2
+        brownCheckBox.tag = 3
+        purpleCheckBox.tag = 4
+        blueCheckBox.tag = 5
+        orangeCheckBox.tag = 6
+        redCheckBox.tag = 7
+        yellowCheckBox.tag = 8
+        blackCheckBox.tag = 9
+        grayCheckBox.tag = 10
+        
+//        backgroundColorSegmentedControl.addTarget(self, action: #selector(backgroundColorSegmentedControlChanged), for: .valueChanged)
+//        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
+//        wordPositionSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
         
     }
     
@@ -428,6 +443,17 @@ final class SettingsViewController: UIViewController {
             
         ])
     }
+    
+    private func setupRawValue() {
+        timeSlider.value = Float(gameSettings.timeNumber / 60)
+        timeNumber.text = String(gameSettings.timeNumber / 60)
+        speedSlider.value = Float(gameSettings.speedNumber)
+        speedNumber.text = String(gameSettings.speedNumber)
+        switchSubstrate.isOn  = gameSettings.substrateSwitchStatus
+        gameCheckSwitch.isOn = gameSettings.gameCheckSwitchStatus
+        backgroundColorSegmentedControl.selectedSegmentIndex = gameSettings.backgroundColor
+        wordPositionSegmentedControl.selectedSegmentIndex = gameSettings.ifRandomLocation ? 0 : 1
+    }
     // MARK: - Slider Actions
     
     @objc private func timeSliderChanged(_ sender: UISlider) {
@@ -461,47 +487,84 @@ final class SettingsViewController: UIViewController {
     @objc func checkboxButtonTapped(_ sender: UIButton) {
         for subview in sender.subviews {
             if let imageView = subview as? UIImageView {
-                imageView.isHidden = !imageView.isHidden
+                if  ColorModel.gameColors.count > 2 {
+                    setupColors(tag: sender.tag, ifChecked: imageView.isHidden)
+                    imageView.isHidden.toggle()
+                } else if ColorModel.gameColors.count <= 2, imageView.isHidden {
+                    ColorModel.gameColors.append(ColorModel.gameColorsModel[sender.tag])
+                    imageView.isHidden.toggle()
+                }
             }
-            
-            gameSettings.updateTextColor(button: sender)
-            
-            
         }
     }
     
-    // MARK: - Segmented Controls Actions
-    @objc func backgroundColorSegmentedControlChanged(_ sender: UISegmentedControl) {
-       switch sender.selectedSegmentIndex {
-       case 0:
-           SettingsManager.shared.changeBackgroundColor = .gray
-       case 1:
-           SettingsManager.shared.changeBackgroundColor = .white
-       case 2:
-           SettingsManager.shared.changeBackgroundColor = .black
-       default:
-           break
-       }
-       backgroundColorView.backgroundColor = gameSettings.changeBackgroundColor
+    
+    private func setupColors(tag: Int, ifChecked: Bool) {
+        if ifChecked {
+            ColorModel.gameColors.append(ColorModel.gameColorsModel[tag])
+        } else {
+            ColorModel.gameColors.removeAll{$0 == ColorModel.gameColorsModel[tag] }
+        }
     }
     
-    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
+    @objc func backgroundColorSet(_ sender: UISegmentedControl) {
+        let selectedIndex = sender.selectedSegmentIndex
+        switch selectedIndex {
         case 0:
-            gameSettings.textAlignment = .center
+            SettingsManager.shared.backgroundColor = 0
         case 1:
-            gameSettings.textAlignment = .justified
+            SettingsManager.shared.backgroundColor = 1
+        case 2:
+            SettingsManager.shared.backgroundColor = 2
         default:
             break
         }
     }
     
-    // MARK: - Stepper Action
-    @objc func stepperValueChanged(_ sender: UIStepper) {
-        gameSettings.wordSize = CGFloat(sender.value)
-
+    @objc func randomLocation(_ sender: UISegmentedControl) {
+        let selectedIndex = sender.selectedSegmentIndex
+        switch selectedIndex {
+        case 0:
+            SettingsManager.shared.ifRandomLocation = true
+        case 1:
+            SettingsManager.shared.ifRandomLocation = false
+        default:
+            break
+        }
     }
-
+    
+    //    // MARK: - Segmented Controls Actions
+    //    @objc func backgroundColorSegmentedControlChanged(_ sender: UISegmentedControl) {
+    //       switch sender.selectedSegmentIndex {
+    //       case 0:
+    //           SettingsManager.shared.changeBackgroundColor = .gray
+    //       case 1:
+    //           SettingsManager.shared.changeBackgroundColor = .white
+    //       case 2:
+    //           SettingsManager.shared.changeBackgroundColor = .black
+    //       default:
+    //           break
+    //       }
+    //       backgroundColorView.backgroundColor = gameSettings.changeBackgroundColor
+    //    }
+    //
+    //    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+    //        switch sender.selectedSegmentIndex {
+    //        case 0:
+    //            gameSettings.textAlignment = .center
+    //        case 1:
+    //            gameSettings.textAlignment = .justified
+    //        default:
+    //            break
+    //        }
+    //    }
+    //
+    //    // MARK: - Stepper Action
+    //    @objc func stepperValueChanged(_ sender: UIStepper) {
+    //        gameSettings.wordSize = CGFloat(sender.value)
+    //
+    //    }
+    
     
 }
 
