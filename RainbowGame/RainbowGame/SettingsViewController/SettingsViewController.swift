@@ -258,6 +258,9 @@ final class SettingsViewController: UIViewController {
             checkbox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
         }
         
+        backgroundColorSegmentedControl.addTarget(self, action: #selector(backgroundColorSegmentedControlChanged), for: .valueChanged)
+        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
+        
     }
     
     // MARK: - Setup Constraints
@@ -462,9 +465,34 @@ final class SettingsViewController: UIViewController {
             if let imageView = subview as? UIImageView {
                 imageView.isHidden = !imageView.isHidden
             }
+            
+            gameSettings.updateTextColor(button: sender)
+            
+            
         }
     }
     
+    // MARK: - Segmented Controls Actions
+    @objc func backgroundColorSegmentedControlChanged(_ sender: UISegmentedControl) {
+       switch sender.selectedSegmentIndex {
+       case 0:
+           SettingsManager.shared.changeBackgroundColor = .gray
+       case 1:
+           SettingsManager.shared.changeBackgroundColor = .white
+       case 2:
+           SettingsManager.shared.changeBackgroundColor = .black
+       default:
+           break
+       }
+       backgroundColorView.backgroundColor = gameSettings.changeBackgroundColor
+    }
+    
+    // MARK: - Stepper Action
+    @objc func stepperValueChanged(_ sender: UIStepper) {
+        gameSettings.wordSize = CGFloat(sender.value)
+
+    }
+
     
 }
 
