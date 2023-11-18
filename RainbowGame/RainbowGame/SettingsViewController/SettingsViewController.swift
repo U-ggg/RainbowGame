@@ -10,7 +10,7 @@ import UIKit
 final class SettingsViewController: UIViewController {
     
     // MARK: - UI
-    
+    private let settingsManager = SettingsManager.shared
     private let mainStackView = UIStackView(spacing: 20, axis: .vertical, alignment: .center)
     
     private let timeView = UIView(backgroundColor: .white)
@@ -52,34 +52,34 @@ final class SettingsViewController: UIViewController {
     
     
     private let greenCheckBox = UIButton(buttonColor: .green)
-    private let systemGreenCheckBox = UIButton(buttonColor: .systemGreen)
+    //    private let systemGreenCheckBox = UIButton(buttonColor: .systemGreen)
     private let pinkCheckBox = UIButton(buttonColor: .systemPink)
-    private let cyanCheckBox = UIButton(buttonColor: .cyan)
+    private let cyanCheckBox = UIButton(buttonColor: .lightBlue)
     private let brownCheckBox = UIButton(buttonColor: .brown)
     private let purpleCheckBox = UIButton(buttonColor: .purple)
     
     private let checkBoxesBottonStackView = UIStackView(spacing: 10, axis: .horizontal, alignment: .center)
     
-    private let blueCheckBox = UIButton(buttonColor: .systemBlue)
+    private let blueCheckBox = UIButton(buttonColor: .blue)
     private let orangeCheckBox = UIButton(buttonColor: .orange)
     private let redCheckBox = UIButton(buttonColor: .red)
-    private let yellowCheckBox = UIButton(buttonColor: .yellow)
+    private let yellowCheckBox = UIButton(buttonColor: .systemYellow)
     private let blackCheckBox = UIButton(buttonColor: .black)
     private let grayCheckBox = UIButton(buttonColor: .gray)
     
-    private let greenVector = UIImageView(vectorIsHidden: true)
-    private let systemGreenVector = UIImageView(vectorIsHidden: true)
-    private let systemPinkVector = UIImageView(vectorIsHidden: true)
-    private let cyanVector = UIImageView(vectorIsHidden: true)
-    private let brownVector = UIImageView(vectorIsHidden: true)
-    private let purpleVector = UIImageView(vectorIsHidden: true)
+    private let greenVector = UIImageView(vectorIsHidden: false)
+    private let systemGreenVector = UIImageView(vectorIsHidden: false)
+    private let systemPinkVector = UIImageView(vectorIsHidden: false)
+    private let cyanVector = UIImageView(vectorIsHidden: false)
+    private let brownVector = UIImageView(vectorIsHidden: false)
+    private let purpleVector = UIImageView(vectorIsHidden: false)
     
-    private let blueVector = UIImageView(vectorIsHidden: true)
-    private let orangeVector = UIImageView(vectorIsHidden: true)
-    private let redVector = UIImageView(vectorIsHidden: true)
-    private let yellowVector = UIImageView(vectorIsHidden: true)
-    private let blackVector = UIImageView(whiteVectorIsHidden: true)
-    private let grayVector = UIImageView(vectorIsHidden: true)
+    private let blueVector = UIImageView(vectorIsHidden: false)
+    private let orangeVector = UIImageView(vectorIsHidden: false)
+    private let redVector = UIImageView(vectorIsHidden: false)
+    private let yellowVector = UIImageView(vectorIsHidden: false)
+    private let blackVector = UIImageView(whiteVectorIsHidden: false)
+    private let grayVector = UIImageView(vectorIsHidden: false)
     
     private let wordSizeView = UIView(backgroundColor: .white)
     private let wordSizeStackView = UIStackView(spacing: 35, axis: .horizontal, alignment: .center)
@@ -99,6 +99,7 @@ final class SettingsViewController: UIViewController {
         element.insertSegment(withTitle: "Серый", at: 1, animated: true)
         element.insertSegment(withTitle: "Белый", at: 2, animated: true)
         element.insertSegment(withTitle: "Черный", at: 3, animated: true)
+        element.addTarget(self, action: #selector(backgroundColorSet(_:)), for: .valueChanged)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -108,8 +109,9 @@ final class SettingsViewController: UIViewController {
     private let wordPositionLabel = UILabel(text: "расположение слова на экране", fontSize: 15)
     private lazy var wordPositionSegmentedControl: UISegmentedControl = {
         let element = UISegmentedControl()
-        element.insertSegment(withTitle: "Случайное", at: 1, animated: true)
-        element.insertSegment(withTitle: "По центру", at: 2, animated: true)
+        element.insertSegment(withTitle: "Случайное", at: 4, animated: true)
+        element.insertSegment(withTitle: "По центру", at: 5, animated: true)
+        element.addTarget(self, action: #selector(randomLocation(_:)), for: .valueChanged)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -132,6 +134,7 @@ final class SettingsViewController: UIViewController {
         
         setViews()
         setConstraints()
+        setupRawValue()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -191,7 +194,7 @@ final class SettingsViewController: UIViewController {
         wordColorCheckBoxesStackView.addArrangedSubview(checkBoxesBottonStackView)
         
         checkBoxesTopStackView.addArrangedSubview(greenCheckBox)
-        checkBoxesTopStackView.addArrangedSubview(systemGreenCheckBox)
+        //        checkBoxesTopStackView.addArrangedSubview(systemGreenCheckBox)
         checkBoxesTopStackView.addArrangedSubview(pinkCheckBox)
         checkBoxesTopStackView.addArrangedSubview(cyanCheckBox)
         checkBoxesTopStackView.addArrangedSubview(brownCheckBox)
@@ -205,7 +208,7 @@ final class SettingsViewController: UIViewController {
         checkBoxesBottonStackView.addArrangedSubview(grayCheckBox)
         
         greenCheckBox.addSubview(greenVector)
-        systemGreenCheckBox.addSubview(systemGreenVector)
+        //        systemGreenCheckBox.addSubview(systemGreenVector)
         pinkCheckBox.addSubview(systemPinkVector)
         cyanCheckBox.addSubview(cyanVector)
         brownCheckBox.addSubview(brownVector)
@@ -237,11 +240,11 @@ final class SettingsViewController: UIViewController {
         gameCheckSwitch.addTarget(self, action: #selector(gameCheckChanged), for: .valueChanged)
         
         greenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
-        systemGreenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
+        //        systemGreenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
         
         let checkboxes = [
             greenCheckBox,
-            systemGreenCheckBox,
+            //            systemGreenCheckBox,
             pinkCheckBox,
             cyanCheckBox,
             brownCheckBox,
@@ -257,6 +260,18 @@ final class SettingsViewController: UIViewController {
         for checkbox in checkboxes {
             checkbox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
         }
+        
+        greenCheckBox.tag = 0
+        pinkCheckBox.tag = 1
+        cyanCheckBox.tag = 2
+        brownCheckBox.tag = 3
+        purpleCheckBox.tag = 4
+        blueCheckBox.tag = 5
+        orangeCheckBox.tag = 6
+        redCheckBox.tag = 7
+        yellowCheckBox.tag = 8
+        blackCheckBox.tag = 9
+        grayCheckBox.tag = 10
         
     }
     
@@ -281,8 +296,8 @@ final class SettingsViewController: UIViewController {
             
             greenCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
             greenCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
-            systemGreenCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
-            systemGreenCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
+            //            systemGreenCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
+            //            systemGreenCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
             pinkCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
             pinkCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
             cyanCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
@@ -351,10 +366,10 @@ final class SettingsViewController: UIViewController {
             greenVector.trailingAnchor.constraint(equalTo: greenCheckBox.trailingAnchor),
             greenVector.bottomAnchor.constraint(equalTo: greenCheckBox.safeAreaLayoutGuide.bottomAnchor),
             
-            systemGreenVector.topAnchor.constraint(equalTo: systemGreenCheckBox.safeAreaLayoutGuide.topAnchor),
-            systemGreenVector.leadingAnchor.constraint(equalTo: systemGreenCheckBox.leadingAnchor),
-            systemGreenVector.trailingAnchor.constraint(equalTo: systemGreenCheckBox.trailingAnchor),
-            systemGreenVector.bottomAnchor.constraint(equalTo: systemGreenCheckBox.safeAreaLayoutGuide.bottomAnchor),
+            //            systemGreenVector.topAnchor.constraint(equalTo: systemGreenCheckBox.safeAreaLayoutGuide.topAnchor),
+            //            systemGreenVector.leadingAnchor.constraint(equalTo: systemGreenCheckBox.leadingAnchor),
+            //            systemGreenVector.trailingAnchor.constraint(equalTo: systemGreenCheckBox.trailingAnchor),
+            //            systemGreenVector.bottomAnchor.constraint(equalTo: systemGreenCheckBox.safeAreaLayoutGuide.bottomAnchor),
             
             systemPinkVector.topAnchor.constraint(equalTo: pinkCheckBox.safeAreaLayoutGuide.topAnchor),
             systemPinkVector.leadingAnchor.constraint(equalTo: pinkCheckBox.leadingAnchor),
@@ -427,10 +442,21 @@ final class SettingsViewController: UIViewController {
             
         ])
     }
+    
+    private func setupRawValue() {
+        timeSlider.value = Float(settingsManager.timeNumber / 60)
+        timeNumber.text = String(settingsManager.timeNumber / 60)
+        speedSlider.value = Float(settingsManager.speedNumber)
+        speedNumber.text = String(settingsManager.speedNumber)
+        switchSubstrate.isOn  = settingsManager.substrateSwitchStatus
+        gameCheckSwitch.isOn = settingsManager.gameCheckSwitchStatus
+        backgroundColorSegmentedControl.selectedSegmentIndex = settingsManager.backgroundColor
+        wordPositionSegmentedControl.selectedSegmentIndex = settingsManager.ifRandomLocation ? 0 : 1
+    }
     // MARK: - Slider Actions
     
     @objc private func timeSliderChanged(_ sender: UISlider) {
-        gameSettings.timeNumber = Int(sender.value * 60)
+        gameSettings.timeNumber = Int(sender.value) * 60
         timeNumber.text = String(format: "%.f", sender.value)
     }
     
@@ -458,13 +484,52 @@ final class SettingsViewController: UIViewController {
     // MARK: - Checkbox Actions
     
     @objc func checkboxButtonTapped(_ sender: UIButton) {
-        for subview in sender.subviews {
-            if let imageView = subview as? UIImageView {
-                imageView.isHidden = !imageView.isHidden
+            for subview in sender.subviews {
+                if let imageView = subview as? UIImageView {
+                    if  ColorModel.gameColors.count > 2 {
+                        setupColors(tag: sender.tag, ifChecked: imageView.isHidden)
+                        imageView.isHidden.toggle()
+                    } else if ColorModel.gameColors.count <= 2, imageView.isHidden {
+                        ColorModel.gameColors.append(ColorModel.gameColorsModel[sender.tag])
+                        imageView.isHidden.toggle()
+                    }
+                }
             }
         }
+
+    
+    private func setupColors(tag: Int, ifChecked: Bool) {
+        if ifChecked {
+            ColorModel.gameColors.append(ColorModel.gameColorsModel[tag])
+        } else {
+            ColorModel.gameColors.removeAll{$0 == ColorModel.gameColorsModel[tag] }            }
     }
     
+    @objc func backgroundColorSet(_ sender: UISegmentedControl) {
+            let selectedIndex = sender.selectedSegmentIndex
+            switch selectedIndex {
+            case 0:
+                SettingsManager.shared.backgroundColor = 0
+            case 1:
+                SettingsManager.shared.backgroundColor = 1
+            case 2:
+                SettingsManager.shared.backgroundColor = 2
+            default:
+                break
+            }
+        }
+    
+    @objc func randomLocation(_ sender: UISegmentedControl) {
+            let selectedIndex = sender.selectedSegmentIndex
+            switch selectedIndex {
+            case 0:
+                SettingsManager.shared.ifRandomLocation = true
+            case 1:
+                SettingsManager.shared.ifRandomLocation = false
+            default:
+                break
+            }
+        }
     
 }
 
