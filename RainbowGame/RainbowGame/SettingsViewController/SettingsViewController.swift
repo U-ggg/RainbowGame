@@ -50,21 +50,22 @@ final class SettingsViewController: UIViewController {
     
     private let checkBoxesTopStackView = UIStackView(spacing: 10, axis: .horizontal, alignment: .center)
     
-    private let greenCheckBox = UIView(backgroundColor: .green)
-    private let systemGreenCheckBox = UIView(backgroundColor: .systemGreen)
-    private let pinkCheckBox = UIView(backgroundColor: .systemPink)
-    private let cyanCheckBox = UIView(backgroundColor: .cyan)
-    private let brownCheckBox = UIView(backgroundColor: .brown)
-    private let purpleCheckBox = UIView(backgroundColor: .purple)
+    
+    private let greenCheckBox = UIButton(buttonColor: .green)
+    private let systemGreenCheckBox = UIButton(buttonColor: .systemGreen)
+    private let pinkCheckBox = UIButton(buttonColor: .systemPink)
+    private let cyanCheckBox = UIButton(buttonColor: .cyan)
+    private let brownCheckBox = UIButton(buttonColor: .brown)
+    private let purpleCheckBox = UIButton(buttonColor: .purple)
     
     private let checkBoxesBottonStackView = UIStackView(spacing: 10, axis: .horizontal, alignment: .center)
     
-    private let blueCheckBox = UIView(backgroundColor: .systemBlue)
-    private let orangeCheckBox = UIView(backgroundColor: .orange)
-    private let redCheckBox = UIView(backgroundColor: .red)
-    private let yellowCheckBox = UIView(backgroundColor: .yellow)
-    private let blackCheckBox = UIView(backgroundColor: .black)
-    private let grayCheckBox = UIView(backgroundColor: .gray)
+    private let blueCheckBox = UIButton(buttonColor: .systemBlue)
+    private let orangeCheckBox = UIButton(buttonColor: .orange)
+    private let redCheckBox = UIButton(buttonColor: .red)
+    private let yellowCheckBox = UIButton(buttonColor: .yellow)
+    private let blackCheckBox = UIButton(buttonColor: .black)
+    private let grayCheckBox = UIButton(buttonColor: .gray)
     
     private let greenVector = UIImageView(vectorIsHidden: true)
     private let systemGreenVector = UIImageView(vectorIsHidden: true)
@@ -117,6 +118,7 @@ final class SettingsViewController: UIViewController {
     // MARK: - Private Properties
     
     private let gameSettings = SettingsManager.shared
+    
     
     private let widthAnchorConstant: CGFloat = 300
     private let heighAnchorConstant: CGFloat = 65
@@ -233,6 +235,28 @@ final class SettingsViewController: UIViewController {
         speedSlider.addTarget(self, action: #selector(speedSliderChanged), for: .valueChanged)
         switchSubstrate.addTarget(self, action: #selector(substrateSwitchChanged), for: .valueChanged)
         gameCheckSwitch.addTarget(self, action: #selector(gameCheckChanged), for: .valueChanged)
+        
+        greenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
+        systemGreenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
+        
+        let checkboxes = [
+            greenCheckBox,
+            systemGreenCheckBox,
+            pinkCheckBox,
+            cyanCheckBox,
+            brownCheckBox,
+            purpleCheckBox,
+            blueCheckBox,
+            orangeCheckBox,
+            redCheckBox,
+            yellowCheckBox,
+            blackCheckBox,
+            grayCheckBox
+        ]
+        
+        for checkbox in checkboxes {
+            checkbox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
+        }
         
     }
     
@@ -431,68 +455,18 @@ final class SettingsViewController: UIViewController {
         gameSettings.gameCheckSwitchStatus = sender.isOn ? true : false
     }
     
-}
-
-// MARK: - Extensions
-
-extension UILabel {
-    convenience init(text: String, fontSize: CGFloat) {
-        self.init()
-        self.font = UIFont.systemFont(ofSize: fontSize)
-        self.text = text
-        self.numberOfLines = 0
-        self.translatesAutoresizingMaskIntoConstraints = false
+    // MARK: - Checkbox Actions
+    
+    @objc func checkboxButtonTapped(_ sender: UIButton) {
+        for subview in sender.subviews {
+            if let imageView = subview as? UIImageView {
+                imageView.isHidden = !imageView.isHidden
+            }
+        }
     }
-}
-
-extension UIStackView {
-    convenience init(spacing: CGFloat, axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment) {
-        self.init()
-        self.axis = axis
-        self.alignment = alignment
-        self.spacing = spacing
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
+    
+    
 }
 
 
-extension UISlider {
-    convenience init(maximumValue: Float) {
-        self .init()
-        self.minimumTrackTintColor = .orange
-        self.maximumValue = maximumValue
-        self.minimumValue = 1
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
 
-extension UIView {
-    convenience init(backgroundColor: UIColor) {
-        self.init()
-        self.layer.cornerRadius = 10
-        self.backgroundColor = backgroundColor
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowRadius = 2
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
-
-extension UIImageView {
-    convenience init(vectorIsHidden: Bool) {
-        self.init()
-        self.image = UIImage(named: "vector")
-        self.isHidden = vectorIsHidden
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
-
-extension UIImageView {
-    convenience init(whiteVectorIsHidden: Bool) {
-        self.init()
-        self.image = UIImage(named: "whiteVector")
-        self.isHidden = whiteVectorIsHidden
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
