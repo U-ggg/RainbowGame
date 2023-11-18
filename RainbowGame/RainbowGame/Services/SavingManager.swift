@@ -35,7 +35,7 @@ struct SavingManager {
             saveValue(value: true, forKey: .gameCheckSwitchStatus)
             saveValue(value: false, forKey: .ifContinueGame)
             saveValue(value: true, forKey: .firstLaunch)
-          }
+        }
     }
     
     static func saveSettings() {
@@ -59,25 +59,25 @@ struct SavingManager {
     
     static func saveResultsModel() {
         do {
-              let encoder = JSONEncoder()
-            let encodedData = try encoder.encode(ResultsManager.shared.resutlsModel)
+            let encoder = JSONEncoder()
+            let encodedData = try encoder.encode(ResultsManager.shared.resultsModel)
             userDefaults.set(encodedData, forKey: SettingKey.resultsModel.rawValue)
             print("Модель сохранена")
-          } catch {
-              print("Не удалось сохранить модель")
-          }
+        } catch {
+            print("Не удалось сохранить модель")
+        }
     }
     
     static func loadResultsModel() {
         if let savedData = userDefaults.data(forKey: SettingKey.resultsModel.rawValue) {
-             do {
-                 let decoder = JSONDecoder()
-                 let loadedModel = try decoder.decode([ResutlsModel].self, from: savedData)
-                 ResultsManager.shared.resutlsModel = loadedModel
-             } catch {
-                 print("Не удалось загрузить модель")
-                 ResultsManager.shared.resutlsModel = []
-             }
-         }
+            do {
+                let decoder = JSONDecoder()
+                let loadedModel = try decoder.decode([ResultsModel].self, from: savedData)
+                ResultsManager.shared.resultsModel = loadedModel
+            } catch {
+                print("Не удалось загрузить модель")
+                ResultsManager.shared.resultsModel = []
+            }
+        }
     }
 }

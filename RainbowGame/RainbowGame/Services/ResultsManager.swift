@@ -9,10 +9,10 @@ import Foundation
 
 final class ResultsManager {
     static let shared = ResultsManager()
-    var resutlsModel: [ResutlsModel] = []
+    var resultsModel: [ResultsModel] = []
     
-    //MARK: - SaveResultModel
+    //MARK: - SaveResultsModel
     func saveResult(time: Int, speed: Int, answer: Int? = nil) {
-        resutlsModel.append(ResutlsModel(time: time, speed: speed, answer: answer))
+        resultsModel.append(ResultsModel(time: time, speed: speed, answer: answer))
     }
 }

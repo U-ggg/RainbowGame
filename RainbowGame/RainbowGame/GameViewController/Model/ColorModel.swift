@@ -11,15 +11,15 @@ import UIKit
 struct ColorModel {
     static let gameColors: [(String, UIColor)] = [
         ("Красный", UIColor.red),
-            ("Синий", UIColor.blue),
-            ("Зеленый", UIColor.green),
+        ("Синий", UIColor.blue),
+        ("Зеленый", UIColor.green),
         ("Желтый", UIColor.systemYellow),
-            ("Оранжевый", UIColor.orange),
-            ("Фиолетовый", UIColor.purple),
-            ("Розовый", UIColor.systemPink),
-            ("Черный", UIColor.black),
-            ("Серый", UIColor.gray),
-            ("Коричневый", UIColor.brown),
-            ("Голубой", UIColor.lightBlue)
+        ("Оранжевый", UIColor.orange),
+        ("Фиолетовый", UIColor.purple),
+        ("Розовый", UIColor.systemPink),
+        ("Черный", UIColor.black),
+        ("Серый", UIColor.gray),
+        ("Коричневый", UIColor.brown),
+        ("Голубой", UIColor.lightBlue)
     ]
 }
