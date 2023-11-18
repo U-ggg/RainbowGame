@@ -28,8 +28,11 @@ final class SettingsManager {
     
     private init() {}
     
-    var timeNumber: Int = 1
-    var speedNumber: Int = 1
+    var timeNumber: Int = 60
+    var speedNumber: Int = 4
+    var sizeOfText: Int = 10
+    var backgroundColor: Int = 0
+    var ifRandomLocation: Bool = true
     
     var substrateSwitchStatus: Bool = false
     var gameCheckSwitchStatus: Bool = false
