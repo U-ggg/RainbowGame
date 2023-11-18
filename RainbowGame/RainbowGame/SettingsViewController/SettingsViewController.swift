@@ -236,9 +236,6 @@ final class SettingsViewController: UIViewController {
         switchSubstrate.addTarget(self, action: #selector(substrateSwitchChanged), for: .valueChanged)
         gameCheckSwitch.addTarget(self, action: #selector(gameCheckChanged), for: .valueChanged)
         
-        greenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
-        systemGreenCheckBox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
-        
         let checkboxes = [
             greenCheckBox,
             systemGreenCheckBox,
@@ -260,6 +257,7 @@ final class SettingsViewController: UIViewController {
         
         backgroundColorSegmentedControl.addTarget(self, action: #selector(backgroundColorSegmentedControlChanged), for: .valueChanged)
         stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
+        wordPositionSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
         
     }
     
@@ -485,6 +483,17 @@ final class SettingsViewController: UIViewController {
            break
        }
        backgroundColorView.backgroundColor = gameSettings.changeBackgroundColor
+    }
+    
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            gameSettings.textAlignment = .center
+        case 1:
+            gameSettings.textAlignment = .justified
+        default:
+            break
+        }
     }
     
     // MARK: - Stepper Action

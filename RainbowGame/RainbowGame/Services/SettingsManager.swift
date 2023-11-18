@@ -34,6 +34,7 @@ final class SettingsManager {
     var substrateSwitchStatus: Bool = false
     var gameCheckSwitchStatus: Bool = false
     
+    var textAlignment: NSTextAlignment = .center
     var changeBackgroundColor: UIColor = .white
     var wordSize: CGFloat = 15
     var wordColor: UIColor = .black
@@ -92,5 +93,9 @@ final class SettingsManager {
              wordColor = .gray
          }
      }
+    
+    func updateTextAlignment(alignment: NSTextAlignment) {
+           textAlignment = alignment
+       }
 
 }
