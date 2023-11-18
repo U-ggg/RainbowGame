@@ -179,9 +179,12 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func  buttonContinuePressed() {
-        let continueGameVC = GameViewController()
-        continueGameVC.isContinueGame = true
-        navigationController?.pushViewController(continueGameVC, animated: true)
+        let gameTime = SavingManager.getValueOfInt(forKey: .timeLeft)
+        if gameTime > 0 {
+            let continueGameVC = GameViewController()
+            continueGameVC.isContinueGame = true
+            navigationController?.pushViewController(continueGameVC, animated: true)
+        }
     }
     
     @objc private func  buttonStatisticsPressed() {

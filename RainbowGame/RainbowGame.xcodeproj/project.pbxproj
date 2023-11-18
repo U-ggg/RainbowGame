@@ -17,7 +17,7 @@
 		7964C3902B08E9E700DAE1CA /* UIKit + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7964C38F2B08E9E700DAE1CA /* UIKit + Extensions.swift */; };
 		79E442642B041839009365F7 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E442632B041839009365F7 /* SettingsManager.swift */; };
 		EB4DD0BF2B076D4400381151 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0BE2B076D4400381151 /* ResultCell.swift */; };
-		EB4DD0C12B076E2500381151 /* ResutlsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0C02B076E2500381151 /* ResutlsModel.swift */; };
+		EB4DD0C12B076E2500381151 /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DD0C02B076E2500381151 /* ResultsModel.swift */; };
 		EB559D922B010F03003E28E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D912B010F03003E28E4 /* AppDelegate.swift */; };
 		EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB559D932B010F03003E28E4 /* SceneDelegate.swift */; };
 		EB559D9E2B010F04003E28E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB559D9C2B010F04003E28E4 /* LaunchScreen.storyboard */; };
@@ -41,7 +41,7 @@
 		7964C38F2B08E9E700DAE1CA /* UIKit + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit + Extensions.swift"; sourceTree = "<group>"; };
 		79E442632B041839009365F7 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		EB4DD0BE2B076D4400381151 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
-		EB4DD0C02B076E2500381151 /* ResutlsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResutlsModel.swift; sourceTree = "<group>"; };
+		EB4DD0C02B076E2500381151 /* ResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModel.swift; sourceTree = "<group>"; };
 		EB559D8E2B010F03003E28E4 /* RainbowGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RainbowGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB559D912B010F03003E28E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB559D932B010F03003E28E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 			children = (
 				EB7419BD2B01511A00B48D3E /* ResultsViewController.swift */,
 				EB4DD0BE2B076D4400381151 /* ResultCell.swift */,
-				EB4DD0C02B076E2500381151 /* ResutlsModel.swift */,
+				EB4DD0C02B076E2500381151 /* ResultsModel.swift */,
 			);
 			path = ResultsViewController;
 			sourceTree = "<group>";
@@ -294,7 +294,7 @@
 				7964C3902B08E9E700DAE1CA /* UIKit + Extensions.swift in Sources */,
 				0BFB57F72B07798900F9C25A /* ResultsManager.swift in Sources */,
 				0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */,
-				EB4DD0C12B076E2500381151 /* ResutlsModel.swift in Sources */,
+				EB4DD0C12B076E2500381151 /* ResultsModel.swift in Sources */,
 				0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */,
 				EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */,
 				EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */,
@@ -447,6 +447,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RainbowGame/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "RainBow Game";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -478,6 +479,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RainbowGame/Support/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "RainBow Game";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

@@ -86,7 +86,7 @@ final class ResultCell: UICollectionViewCell {
     }
     
     //MARK: - Configure
-    func configure(_ model: ResutlsModel, number: Int) {
+    func configure(_ model: ResultsModel, number: Int) {
         gameNumberLabel.text = "Игра № \(number + 1)"
         gameTimeLabel.text = "Время игры: \(model.time) мин"
         gameSpeedLabel.text = "Скорость \(model.speed)"
