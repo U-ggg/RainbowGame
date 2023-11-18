@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ResultsManager {
+final class ResultsManager {
     static let shared = ResultsManager()
     var resutlsModel: [ResutlsModel] = []
     

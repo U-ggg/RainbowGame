@@ -133,8 +133,8 @@
 				EB559DAA2B011047003E28E4 /* ResultsViewController */,
 				EB559DAB2B011056003E28E4 /* SettingsViewController */,
 				EB559DA92B01103A003E28E4 /* RulesViewController */,
-				EB559DA62B010FDF003E28E4 /* Support */,
 				79E442652B041B4D009365F7 /* Services */,
+				EB559DA62B010FDF003E28E4 /* Support */,
 			);
 			path = RainbowGame;
 			sourceTree = "<group>";

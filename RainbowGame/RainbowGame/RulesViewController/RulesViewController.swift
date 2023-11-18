@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 
-class RulesViewController: UIViewController {
+final class RulesViewController: UIViewController {
     
+    //MARK: - UI Elements
     private let backgoundView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -102,14 +103,15 @@ class RulesViewController: UIViewController {
         return label
     }()
     
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupNavigationBar()
     }
     
+    //MARK: - UI
     private func setupUI() {
-        
         view.backgroundColor = .lightGray
         view.addSubview(backgoundView)
         backgoundView.addSubview(labelText2)
@@ -170,6 +172,7 @@ class RulesViewController: UIViewController {
         }
     }
     
+    //MARK: - Methods
     private func setupNavigationBar() {
         title = "Помощь"
         navigationController?.navigationBar.titleTextAttributes = [

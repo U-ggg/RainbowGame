@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+//MARK: - SettingKey
 enum SettingKey: String {
     case firstLaunch
     case timeNumber
@@ -17,10 +19,14 @@ enum SettingKey: String {
     case resultsModel
 }
 
+//MARK: - SavingManager
 struct SavingManager {
+    
+    //MARK: - Properties
     static let userDefaults = UserDefaults.standard
     static let settingManager = SettingsManager.shared
     
+    //MARK: - Methods
     static func saveInitialValues() {
         if !getValueOfBool(forKey: .firstLaunch) {
             saveValue(value: 60, forKey: .timeNumber)

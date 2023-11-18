@@ -90,6 +90,6 @@ final class ResultCell: UICollectionViewCell {
         gameNumberLabel.text = "Игра № \(number + 1)"
         gameTimeLabel.text = "Время игры: \(model.time) мин"
         gameSpeedLabel.text = "Скорость \(model.speed)"
-        gameResultLabel.text = "Угадано \(model.answer)"
+        gameResultLabel.text = "Угадано \(model.answer ?? 0)"
     }
 }

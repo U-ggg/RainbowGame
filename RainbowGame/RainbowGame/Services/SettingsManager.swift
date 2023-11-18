@@ -10,7 +10,6 @@ final class SettingsManager {
     
     private init() {}
     
-    
     var timeNumber: Int = 1
     var speedNumber: Int = 1
     
