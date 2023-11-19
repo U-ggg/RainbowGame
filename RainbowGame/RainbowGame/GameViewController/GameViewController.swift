@@ -100,8 +100,8 @@ final class GameViewController: UIViewController {
         title = formatTime(seconds: gameTime)
         let customLeftButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
         let customRightButton = UIBarButtonItem(image: UIImage(named: "pauseButton"), style: .plain, target: self, action: #selector(pauseButtonTapped))
-        customLeftButton.tintColor = .black
-        customRightButton.tintColor = .black
+        (background.backgroundColor == .black) ? (customLeftButton.tintColor = .white) : (customLeftButton.tintColor = .black)
+        (background.backgroundColor == .black) ? (customRightButton.tintColor = .white) : (customRightButton.tintColor = .black)
         navigationItem.leftBarButtonItem = customLeftButton
         navigationItem.rightBarButtonItem = customRightButton
         navigationItem.rightBarButtonItem?.isSelected = false
@@ -148,6 +148,7 @@ final class GameViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
         SavingManager.saveValue(value: true, forKey: .ifContinueGame)
         SavingManager.saveValue(value: gameTime - secondsPassed, forKey: .timeLeft)
+        SavingManager.saveValue(value: SettingsManager.shared.speedNumber, forKey: .speedNumber)
     }
     
     @objc private func pauseButtonTapped() {
@@ -172,7 +173,7 @@ final class GameViewController: UIViewController {
         if secondsPassed == gameTime {
             ResultsManager.shared.saveResult(
                 time: gameTime / 60,
-                speed: speed,
+                speed: SettingsManager.shared.speedNumber,
                 answer: answerCheck)
             timer?.invalidate()
             present(ResultsViewController(), animated: true)
@@ -187,16 +188,16 @@ final class GameViewController: UIViewController {
         switch currentSpeedValue {
         case 1 :
             sender.setTitle("X2", for: .normal)
-            speed = 2
+            updateTime = 2
         case 2 :
             sender.setTitle("X3", for: .normal)
-            speed = 3
+            updateTime = 3
         case 3 :
             sender.setTitle("X4", for: .normal)
-            speed = 2
+            updateTime = 4
         case 4 :
             sender.setTitle("X1", for: .normal)
-            speed = 1
+            updateTime = 1
             currentSpeedValue = 0
         default:
             break

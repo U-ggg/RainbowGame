@@ -72,12 +72,15 @@ final class SettingsViewController: UIViewController {
     private let wordSizeLabel = UILabel(text: "размер букв", fontSize: 15)
     private lazy var stepper: UIStepper = {
         let element = UIStepper()
+        element.minimumValue = 5
+        element.maximumValue = 20
+        element.value = 15
         element.stepValue = 1
         element.addTarget(self, action: #selector(tapAddFont), for: .valueChanged)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
-    private let wordSizeSample = UILabel(text: "Aa", fontSize: 15)
+    private let wordSizeSample = UILabel(text: "Aa", fontSize: SettingsManager.shared.wordSize)
     
     private let backgroundColorView = UIView(backgroundColor: .white)
     private let backgroundColorStackView = UIStackView(spacing: 10, axis: .vertical, alignment: .leading)
@@ -131,7 +134,10 @@ final class SettingsViewController: UIViewController {
     // MARK: - Set Views
     
     private func setViews() {
-        
+        title = "Настройки"
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 29)
+        ]
         let customLeftButton = UIBarButtonItem(
             image: UIImage(named: "backButton"),
             style: .plain,
@@ -423,8 +429,9 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    @objc private func tapAddFont() {
-        SettingsManager.shared.wordSize += 1
+    @objc private func tapAddFont(_ sender: UIStepper) {
+        wordSizeSample.font = .systemFont(ofSize: sender.value)
+        SettingsManager.shared.wordSize = sender.value
     }
     
     //MARK: - Alert
