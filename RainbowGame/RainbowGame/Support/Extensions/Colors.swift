@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 extension UIColor {
     static var background: UIColor {
         return UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)

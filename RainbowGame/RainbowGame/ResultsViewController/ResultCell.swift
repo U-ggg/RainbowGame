@@ -8,7 +8,7 @@
 import UIKit
 
 final class ResultCell: UICollectionViewCell {
-
+    
     //MARK: - UI Elements
     private let gameNumberLabel: UILabel = {
         let label = UILabel()
@@ -16,7 +16,7 @@ final class ResultCell: UICollectionViewCell {
         label.textAlignment = .left
         return label
     }()
-
+    
     private let gameTimeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -38,13 +38,13 @@ final class ResultCell: UICollectionViewCell {
         label.textAlignment = .right
         return label
     }()
-
+    
     //MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionCell()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,17 +58,17 @@ final class ResultCell: UICollectionViewCell {
         layer.shadowOpacity = 0.5
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 2
-
+        
         addSubview(gameNumberLabel)
         addSubview(gameTimeLabel)
         addSubview(gameSpeedLabel)
         addSubview(gameResultLabel)
-
+        
         gameNumberLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(10)
         }
-
+        
         gameTimeLabel.snp.makeConstraints { make in
             make.top.equalTo(gameNumberLabel.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)

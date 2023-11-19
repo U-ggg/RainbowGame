@@ -7,21 +7,20 @@
 
 import UIKit
 
-class Background: UIView {
-
+final class Background: UIView {
+    
     init() {
         super.init(frame: CGRect.zero)
         switch SettingsManager.shared.backgroundColor {
-                case 0:
-                    backgroundColor = .background
-                case 1:
-                    backgroundColor = .white
-                case 2:
-                    backgroundColor = .black
-                default:
-                    backgroundColor = .background
-                }
-                print(SettingsManager.shared.backgroundColor)
+        case 0:
+            backgroundColor = .background
+        case 1:
+            backgroundColor = .white
+        case 2:
+            backgroundColor = .black
+        default:
+            backgroundColor = .background
+        }
     }
     
     required init?(coder: NSCoder) {

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA52B02B4FB002B6DFB /* ColorSelection.swift */; };
 		0B7D0EAA2B02B502002B6DFB /* ColorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA82B02B502002B6DFB /* ColorModel.swift */; };
 		0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */; };
 		0B7D0EAE2B02B514002B6DFB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7D0EAD2B02B514002B6DFB /* Colors.swift */; };
@@ -31,7 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B7D0EA52B02B4FB002B6DFB /* ColorSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelection.swift; sourceTree = "<group>"; };
 		0B7D0EA82B02B502002B6DFB /* ColorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorModel.swift; sourceTree = "<group>"; };
 		0B7D0EA92B02B502002B6DFB /* RainbowCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainbowCardView.swift; sourceTree = "<group>"; };
 		0B7D0EAD2B02B514002B6DFB /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -67,14 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B7D0EA42B02B4FB002B6DFB /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				0B7D0EA52B02B4FB002B6DFB /* ColorSelection.swift */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
 		0B7D0EA72B02B502002B6DFB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,10 +163,9 @@
 		EB559DA82B011028003E28E4 /* GameViewController */ = {
 			isa = PBXGroup;
 			children = (
+				EB7419BB2B01510800B48D3E /* GameViewController.swift */,
 				0B7D0EAF2B02BCAE002B6DFB /* View */,
 				0B7D0EA72B02B502002B6DFB /* Model */,
-				0B7D0EA42B02B4FB002B6DFB /* Helper */,
-				EB7419BB2B01510800B48D3E /* GameViewController.swift */,
 			);
 			path = GameViewController;
 			sourceTree = "<group>";
@@ -295,7 +284,6 @@
 				0BFB57F72B07798900F9C25A /* ResultsManager.swift in Sources */,
 				0B7D0EAB2B02B502002B6DFB /* RainbowCardView.swift in Sources */,
 				EB4DD0C12B076E2500381151 /* ResultsModel.swift in Sources */,
-				0B7D0EA62B02B4FB002B6DFB /* ColorSelection.swift in Sources */,
 				EB7419BE2B01511A00B48D3E /* ResultsViewController.swift in Sources */,
 				EB559D942B010F03003E28E4 /* SceneDelegate.swift in Sources */,
 				EB7419C02B01514100B48D3E /* SettingsViewController.swift in Sources */,

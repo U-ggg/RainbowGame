@@ -64,28 +64,16 @@ final class SettingsViewController: UIViewController {
     private let orangeCheckBox = UIButton(buttonColor: .orange)
     private let redCheckBox = UIButton(buttonColor: .red)
     private let yellowCheckBox = UIButton(buttonColor: .systemYellow)
-    private let blackCheckBox = UIButton(buttonColor: .black)
+    private let mintCheckBox = UIButton(buttonColor: .systemMint)
     private let grayCheckBox = UIButton(buttonColor: .gray)
-    
-    private let greenVector = UIImageView(vectorIsHidden: false)
-    private let systemGreenVector = UIImageView(vectorIsHidden: false)
-    private let systemPinkVector = UIImageView(vectorIsHidden: false)
-    private let cyanVector = UIImageView(vectorIsHidden: false)
-    private let brownVector = UIImageView(vectorIsHidden: false)
-    private let purpleVector = UIImageView(vectorIsHidden: false)
-    
-    private let blueVector = UIImageView(vectorIsHidden: false)
-    private let orangeVector = UIImageView(vectorIsHidden: false)
-    private let redVector = UIImageView(vectorIsHidden: false)
-    private let yellowVector = UIImageView(vectorIsHidden: false)
-    private let blackVector = UIImageView(whiteVectorIsHidden: false)
-    private let grayVector = UIImageView(vectorIsHidden: false)
     
     private let wordSizeView = UIView(backgroundColor: .white)
     private let wordSizeStackView = UIStackView(spacing: 35, axis: .horizontal, alignment: .center)
     private let wordSizeLabel = UILabel(text: "размер букв", fontSize: 15)
     private lazy var stepper: UIStepper = {
         let element = UIStepper()
+        element.stepValue = 1
+        element.addTarget(self, action: #selector(tapAddFont), for: .valueChanged)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -120,7 +108,6 @@ final class SettingsViewController: UIViewController {
     // MARK: - Private Properties
     
     private let gameSettings = SettingsManager.shared
-    
     
     private let widthAnchorConstant: CGFloat = 300
     private let heighAnchorConstant: CGFloat = 65
@@ -204,22 +191,8 @@ final class SettingsViewController: UIViewController {
         checkBoxesBottonStackView.addArrangedSubview(orangeCheckBox)
         checkBoxesBottonStackView.addArrangedSubview(redCheckBox)
         checkBoxesBottonStackView.addArrangedSubview(yellowCheckBox)
-        checkBoxesBottonStackView.addArrangedSubview(blackCheckBox)
+        checkBoxesBottonStackView.addArrangedSubview(mintCheckBox)
         checkBoxesBottonStackView.addArrangedSubview(grayCheckBox)
-        
-        greenCheckBox.addSubview(greenVector)
-        systemGreenCheckBox.addSubview(systemGreenVector)
-        pinkCheckBox.addSubview(systemPinkVector)
-        cyanCheckBox.addSubview(cyanVector)
-        brownCheckBox.addSubview(brownVector)
-        purpleCheckBox.addSubview(purpleVector)
-        
-        blueCheckBox.addSubview(blueVector)
-        orangeCheckBox.addSubview(orangeVector)
-        redCheckBox.addSubview(redVector)
-        yellowCheckBox.addSubview(yellowVector)
-        blackCheckBox.addSubview(blackVector)
-        grayCheckBox.addSubview(grayVector)
         
         wordSizeStackView.addArrangedSubview(wordSizeLabel)
         wordSizeStackView.addArrangedSubview(stepper)
@@ -241,7 +214,7 @@ final class SettingsViewController: UIViewController {
         
         let checkboxes = [
             greenCheckBox,
-            //systemGreenCheckBox,
+            systemGreenCheckBox,
             pinkCheckBox,
             cyanCheckBox,
             brownCheckBox,
@@ -250,30 +223,17 @@ final class SettingsViewController: UIViewController {
             orangeCheckBox,
             redCheckBox,
             yellowCheckBox,
-            blackCheckBox,
+            mintCheckBox,
             grayCheckBox
         ]
         
-        for checkbox in checkboxes {
+        for (index, checkbox) in checkboxes.enumerated() {
+            checkbox.tag = index
+            checkbox.isSelected = SettingsManager.shared.selectedColors[index].isSelected
+            checkbox.setImage(UIImage(systemName: "checkmark"), for: .selected)
+            checkbox.tintColor = .black
             checkbox.addTarget(self, action: #selector(checkboxButtonTapped), for: .touchUpInside)
         }
-        
-        greenCheckBox.tag = 0
-        pinkCheckBox.tag = 1
-        cyanCheckBox.tag = 2
-        brownCheckBox.tag = 3
-        purpleCheckBox.tag = 4
-        blueCheckBox.tag = 5
-        orangeCheckBox.tag = 6
-        redCheckBox.tag = 7
-        yellowCheckBox.tag = 8
-        blackCheckBox.tag = 9
-        grayCheckBox.tag = 10
-        
-//        backgroundColorSegmentedControl.addTarget(self, action: #selector(backgroundColorSegmentedControlChanged), for: .valueChanged)
-//        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
-//        wordPositionSegmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
-        
     }
     
     // MARK: - Setup Constraints
@@ -316,8 +276,8 @@ final class SettingsViewController: UIViewController {
             redCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
             yellowCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
             yellowCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
-            blackCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
-            blackCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
+            mintCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
+            mintCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
             grayCheckBox.widthAnchor.constraint(equalToConstant: checkboxSize),
             grayCheckBox.heightAnchor.constraint(equalToConstant: checkboxSize),
             
@@ -362,66 +322,6 @@ final class SettingsViewController: UIViewController {
             substrateStackView.trailingAnchor.constraint(equalTo: substrateView.trailingAnchor, constant: -10),
             substrateStackView.bottomAnchor.constraint(equalTo: substrateView.safeAreaLayoutGuide.bottomAnchor),
             
-            greenVector.topAnchor.constraint(equalTo: greenCheckBox.safeAreaLayoutGuide.topAnchor),
-            greenVector.leadingAnchor.constraint(equalTo: greenCheckBox.leadingAnchor),
-            greenVector.trailingAnchor.constraint(equalTo: greenCheckBox.trailingAnchor),
-            greenVector.bottomAnchor.constraint(equalTo: greenCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            systemGreenVector.topAnchor.constraint(equalTo: systemGreenCheckBox.safeAreaLayoutGuide.topAnchor),
-            systemGreenVector.leadingAnchor.constraint(equalTo: systemGreenCheckBox.leadingAnchor),
-            systemGreenVector.trailingAnchor.constraint(equalTo: systemGreenCheckBox.trailingAnchor),
-            systemGreenVector.bottomAnchor.constraint(equalTo: systemGreenCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            systemPinkVector.topAnchor.constraint(equalTo: pinkCheckBox.safeAreaLayoutGuide.topAnchor),
-            systemPinkVector.leadingAnchor.constraint(equalTo: pinkCheckBox.leadingAnchor),
-            systemPinkVector.trailingAnchor.constraint(equalTo: pinkCheckBox.trailingAnchor),
-            systemPinkVector.bottomAnchor.constraint(equalTo: pinkCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            cyanVector.topAnchor.constraint(equalTo: cyanCheckBox.safeAreaLayoutGuide.topAnchor),
-            cyanVector.leadingAnchor.constraint(equalTo: cyanCheckBox.leadingAnchor),
-            cyanVector.trailingAnchor.constraint(equalTo: cyanCheckBox.trailingAnchor),
-            cyanVector.bottomAnchor.constraint(equalTo: pinkCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            brownVector.topAnchor.constraint(equalTo: brownCheckBox.safeAreaLayoutGuide.topAnchor),
-            brownVector.leadingAnchor.constraint(equalTo: brownCheckBox.leadingAnchor),
-            brownVector.trailingAnchor.constraint(equalTo: brownCheckBox.trailingAnchor),
-            brownVector.bottomAnchor.constraint(equalTo: brownCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            purpleVector.topAnchor.constraint(equalTo: purpleCheckBox.safeAreaLayoutGuide.topAnchor),
-            purpleVector.leadingAnchor.constraint(equalTo: purpleCheckBox.leadingAnchor),
-            purpleVector.trailingAnchor.constraint(equalTo: purpleCheckBox.trailingAnchor),
-            purpleVector.bottomAnchor.constraint(equalTo: purpleCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            blueVector.topAnchor.constraint(equalTo: blueCheckBox.safeAreaLayoutGuide.topAnchor),
-            blueVector.leadingAnchor.constraint(equalTo: blueCheckBox.leadingAnchor),
-            blueVector.trailingAnchor.constraint(equalTo: blueCheckBox.trailingAnchor),
-            blueVector.bottomAnchor.constraint(equalTo: blueCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            orangeVector.topAnchor.constraint(equalTo: orangeCheckBox.safeAreaLayoutGuide.topAnchor),
-            orangeVector.leadingAnchor.constraint(equalTo: orangeCheckBox.leadingAnchor),
-            orangeVector.trailingAnchor.constraint(equalTo: orangeCheckBox.trailingAnchor),
-            orangeVector.bottomAnchor.constraint(equalTo: orangeCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            redVector.topAnchor.constraint(equalTo: redCheckBox.safeAreaLayoutGuide.topAnchor),
-            redVector.leadingAnchor.constraint(equalTo: redCheckBox.leadingAnchor),
-            redVector.trailingAnchor.constraint(equalTo: redCheckBox.trailingAnchor),
-            redVector.bottomAnchor.constraint(equalTo: redCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            yellowVector.topAnchor.constraint(equalTo: yellowCheckBox.safeAreaLayoutGuide.topAnchor),
-            yellowVector.leadingAnchor.constraint(equalTo: yellowCheckBox.leadingAnchor),
-            yellowVector.trailingAnchor.constraint(equalTo: yellowCheckBox.trailingAnchor),
-            yellowVector.bottomAnchor.constraint(equalTo: yellowCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            blackVector.topAnchor.constraint(equalTo: blackCheckBox.safeAreaLayoutGuide.topAnchor),
-            blackVector.leadingAnchor.constraint(equalTo: blackCheckBox.leadingAnchor),
-            blackVector.trailingAnchor.constraint(equalTo: blackCheckBox.trailingAnchor),
-            blackVector.bottomAnchor.constraint(equalTo: blackCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
-            grayVector.topAnchor.constraint(equalTo: grayCheckBox.safeAreaLayoutGuide.topAnchor),
-            grayVector.leadingAnchor.constraint(equalTo: grayCheckBox.leadingAnchor),
-            grayVector.trailingAnchor.constraint(equalTo: grayCheckBox.trailingAnchor),
-            grayVector.bottomAnchor.constraint(equalTo: grayCheckBox.safeAreaLayoutGuide.bottomAnchor),
-            
             wordSizeStackView.topAnchor.constraint(equalTo: wordSizeView.safeAreaLayoutGuide.topAnchor),
             wordSizeStackView.leadingAnchor.constraint(equalTo: wordSizeView.leadingAnchor, constant: 10),
             wordSizeStackView.trailingAnchor.constraint(equalTo: wordSizeView.trailingAnchor, constant: -10),
@@ -444,6 +344,7 @@ final class SettingsViewController: UIViewController {
         ])
     }
     
+    //MARK: - setupRawValue
     private func setupRawValue() {
         timeSlider.value = Float(gameSettings.timeNumber / 60)
         timeNumber.text = String(gameSettings.timeNumber / 60)
@@ -469,43 +370,30 @@ final class SettingsViewController: UIViewController {
     //MARK: - Back Button
     
     @objc func backButtonTapped() {
-        navigationController?.popToRootViewController(animated: true)
+        if SettingsManager.shared.selectedColors.filter({ $0.isSelected }).count == 0 {
+            alert()
+        } else {
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     // MARK: - Switch Actions
     
-    @objc func substrateSwitchChanged(_ sender: UISwitch) {
+    @objc private func substrateSwitchChanged(_ sender: UISwitch) {
         gameSettings.substrateSwitchStatus = sender.isOn ? true : false
     }
     
-    @objc func gameCheckChanged(_ sender: UISwitch) {
+    @objc private func gameCheckChanged(_ sender: UISwitch) {
         gameSettings.gameCheckSwitchStatus = sender.isOn ? true : false
     }
     
     // MARK: - Checkbox Actions
     
-    @objc func checkboxButtonTapped(_ sender: UIButton) {
-        for subview in sender.subviews {
-            if let imageView = subview as? UIImageView {
-                if  ColorModel.gameColors.count > 2 {
-                    setupColors(tag: sender.tag, ifChecked: imageView.isHidden)
-                    imageView.isHidden.toggle()
-                } else if ColorModel.gameColors.count <= 2, imageView.isHidden {
-                    ColorModel.gameColors.append(ColorModel.gameColorsModel[sender.tag])
-                    imageView.isHidden.toggle()
-                }
-            }
-        }
+    @objc private func checkboxButtonTapped(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        SettingsManager.shared.selectedColors[sender.tag].isSelected = !SettingsManager.shared.selectedColors[sender.tag].isSelected
     }
-    
-    
-    private func setupColors(tag: Int, ifChecked: Bool) {
-        if ifChecked {
-            ColorModel.gameColors.append(ColorModel.gameColorsModel[tag])
-        } else {
-            ColorModel.gameColors.removeAll{$0 == ColorModel.gameColorsModel[tag] }
-        }
-    }
+    //MARK: - Background Color
     
     @objc func backgroundColorSet(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
@@ -521,6 +409,8 @@ final class SettingsViewController: UIViewController {
         }
     }
     
+    //MARK: - Location
+    
     @objc func randomLocation(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
         switch selectedIndex {
@@ -533,39 +423,18 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    //    // MARK: - Segmented Controls Actions
-    //    @objc func backgroundColorSegmentedControlChanged(_ sender: UISegmentedControl) {
-    //       switch sender.selectedSegmentIndex {
-    //       case 0:
-    //           SettingsManager.shared.changeBackgroundColor = .gray
-    //       case 1:
-    //           SettingsManager.shared.changeBackgroundColor = .white
-    //       case 2:
-    //           SettingsManager.shared.changeBackgroundColor = .black
-    //       default:
-    //           break
-    //       }
-    //       backgroundColorView.backgroundColor = gameSettings.changeBackgroundColor
-    //    }
-    //
-    //    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-    //        switch sender.selectedSegmentIndex {
-    //        case 0:
-    //            gameSettings.textAlignment = .center
-    //        case 1:
-    //            gameSettings.textAlignment = .justified
-    //        default:
-    //            break
-    //        }
-    //    }
-    //
-    //    // MARK: - Stepper Action
-    //    @objc func stepperValueChanged(_ sender: UIStepper) {
-    //        gameSettings.wordSize = CGFloat(sender.value)
-    //
-    //    }
+    @objc private func tapAddFont() {
+        SettingsManager.shared.wordSize += 1
+    }
     
+    //MARK: - Alert
     
+    private func alert() {
+        let alert = UIAlertController(title: "Внимание", message: "Нужно выбрать хоть один цвет букв", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Понял", style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
 }
 
 
