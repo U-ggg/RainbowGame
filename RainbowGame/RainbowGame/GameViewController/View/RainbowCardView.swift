@@ -8,17 +8,23 @@
 import UIKit
 import SnapKit
 
+//MARK: - CheckViewDelegate
 protocol CheckViewDelegate: AnyObject {
     func button()
 }
 
-class RainbowCardView: UIView {
+//MARK: - RainbowCardView
+final class RainbowCardView: UIView {
+    
+    //MARK: - Properties
+    weak var delegate: CheckViewDelegate?
     private var cardBackgroundColor: UIColor?
     private var labelText: String?
     private var ifCardBackgroundOn  = SavingManager.getValueOfBool(forKey: .substrateSwitchStatus)
     private var ifCheckButtonOn = SavingManager.getValueOfBool(forKey: .gameCheckSwitchStatus)
-    weak var delegate: CheckViewDelegate?
-    private var fontSize = 15
+    private var textColor: UIColor?
+    
+    //MARK: - UI Elements
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -34,9 +40,11 @@ class RainbowCardView: UIView {
         return button
     }()
     
-    init(cardBackgroundColor: UIColor? = nil, labelText: String? = nil) {
+    //MARK: - Init
+    init(cardBackgroundColor: UIColor? = nil, labelText: String? = nil, textColor: UIColor?) {
         self.cardBackgroundColor = cardBackgroundColor
         self.labelText = labelText
+        self.textColor = textColor
         super.init(frame: CGRect.zero)
         setupView()
         setupCheckButton()
@@ -46,12 +54,12 @@ class RainbowCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Setup UI
     private func setupView() {
         layer.cornerRadius = 15
         
         if ifCardBackgroundOn {
             backgroundColor = cardBackgroundColor
-            label.textColor = .white
         } else {
             label.textColor = cardBackgroundColor
         }
@@ -60,21 +68,12 @@ class RainbowCardView: UIView {
     
     private func setupLabel() {
         label.text = labelText
-        label.font = .boldSystemFont(ofSize: CGFloat(fontSize))
+        label.textColor = textColor
+        label.font = .boldSystemFont(ofSize: SettingsManager.shared.wordSize)
         addSubview(label)
         label.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
-//        if ifCheckButtonOn {
-//            label.snp.makeConstraints { make in
-//                make.centerY.equalToSuperview()
-//                make.leading.equalToSuperview().inset(3)
-//            }
-//        } else {
-//            label.snp.makeConstraints { make in
-//                make.center.equalToSuperview()
-//            }
-//        }
     }
     
     private func setupCheckButton() {
@@ -88,8 +87,15 @@ class RainbowCardView: UIView {
         }
         checkButton.addTarget(self, action: #selector(didButtonTapped), for: .touchUpInside)
     }
+        
+    private func imageSet(_ button: UIButton, with imageName: String) {
+        let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 40, weight: .medium, scale: .medium)
+        let image = UIImage(systemName: imageName, withConfiguration: iconConfiguration)
+        button.setImage(image, for: .normal)
+    }
     
-    @objc func didButtonTapped() {
+    //MARK: - Buttons target
+    @objc private func didButtonTapped() {
         delegate?.button()
         if checkButton.isSelected {
             checkButton.isSelected = false
@@ -100,11 +106,5 @@ class RainbowCardView: UIView {
             imageSet(checkButton, with: "checkmark.circle.fill")
         }
         self.reloadInputViews()
-    }
-    
-    func imageSet(_ button: UIButton, with imageName: String) {
-        let iconConfiguration = UIImage.SymbolConfiguration(pointSize: 40, weight: .medium, scale: .medium)
-        let image = UIImage(systemName: imageName, withConfiguration: iconConfiguration)
-        button.setImage(image, for: .normal)
     }
 }

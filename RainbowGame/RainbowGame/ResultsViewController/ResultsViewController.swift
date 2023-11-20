@@ -12,7 +12,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
     
     //MARK: - ID
     private let cellIdentifier = "ResultCell"
-
+    
     //MARK: - UI Elements
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,7 +23,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
         collectionView.register(ResultCell.self, forCellWithReuseIdentifier: cellIdentifier)
         return collectionView
     }()
-
+    
     private lazy var clearButton: UIButton = {
         let button = UIButton()
         button.setTitle("Очистить статистику", for: .normal)
@@ -36,7 +36,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
         button.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         return button
     }()
-
+    
     //MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
         setupUI()
         
     }
-
+    
     //MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .lightGray
@@ -52,7 +52,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
         let backButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
-
+        
         view.addSubview(clearButton)
         clearButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -69,7 +69,7 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
             make.bottom.equalTo(clearButton.snp.top).offset(-10)
         }
     }
-
+    
     // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -83,23 +83,23 @@ final class ResultsViewController: UIViewController, UICollectionViewDataSource,
         cell.configure(ResultsManager.shared.resultsModel[indexPath.row], number: indexPath.row)
         return cell
     }
-
+    
     // MARK: - UICollectionViewDelegateFlowLayout
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 300, height: 65)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-
+    
     // MARK: - Button Actions
-
+    
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-
+    
     @objc private func clearButtonTapped() {
         ResultsManager.shared.resultsModel = []
         collectionView.reloadData()

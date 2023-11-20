@@ -7,8 +7,8 @@
 
 import UIKit
 
-class Background: UIView {
-
+final class Background: UIView {
+    
     init() {
         super.init(frame: CGRect.zero)
         switch SettingsManager.shared.backgroundColor {
@@ -21,7 +21,6 @@ class Background: UIView {
         default:
             backgroundColor = .background
         }
-        print(SettingsManager.shared.backgroundColor)
     }
     
     required init?(coder: NSCoder) {

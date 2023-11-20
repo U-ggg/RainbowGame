@@ -13,7 +13,6 @@ final class GameViewController: UIViewController {
     //MARK: - Data
     let background = Background()
     var cardViews: [RainbowCardView] = []
-    let colorSelection = ColorSelection()
     var timer: Timer?
     var secondsPassed: Int = 0
     var isTimerPaused: Bool = false
@@ -23,13 +22,15 @@ final class GameViewController: UIViewController {
     var updateTime: Int = SettingsManager.shared.speedNumber
     var answerCheck: Int?
     var speed = 0
+    var currentSpeedValue = 1
     
     //MARK: - UI Elements
     lazy var updateButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemIndigo
         button.layer.cornerRadius = 40
-//        button.addTarget(self, action: #selector(nextCards) , for: .touchUpInside)
+        button.setTitle("X2", for: .normal)
+        button.addTarget(self, action: #selector(tapXButton), for: .touchUpInside)
         return button
     }()
     
@@ -42,7 +43,6 @@ final class GameViewController: UIViewController {
         setupNavBar()
         setupCards()
         setupButton()
-        setupButtonTitle()
         startTimer()
     }
     //MARK: - viewDidDisappear
@@ -52,10 +52,14 @@ final class GameViewController: UIViewController {
     
     //MARK: - SetupScreen
     private func setupCards() {
-        let colors = colorSelection.gameColorSelection(gameColors: ColorModel.gameColors)
+        let colors = SettingsManager.shared.selectedColors
+        let colorsName = colors.shuffled()
+        let textColor = SettingsManager.shared.selectedColors.filter { $0.isSelected }
         var top = 120
-        for i in 0...colors.count - 1 {
-            let card = RainbowCardView(cardBackgroundColor: colors[i].1 , labelText: colors[i].0)
+        for i in 0...5 {
+            let colorText = textColor.shuffled().first
+            let currentColors = colors.filter({ $0.color != colorText?.color })
+            let card = RainbowCardView(cardBackgroundColor: currentColors[i].color , labelText: colorsName[i].colorName, textColor: colorText?.color )
             card.delegate = self
             view.addSubview(card)
             ifRandomLocationOn(top: top, card: card)
@@ -64,6 +68,7 @@ final class GameViewController: UIViewController {
         }
     }
     
+    //MARK: - Location
     private func ifRandomLocationOn(top : Int, card: RainbowCardView) {
         if isRandomLocationOn {
             let leading = Int.random(in: 20...150)
@@ -82,6 +87,7 @@ final class GameViewController: UIViewController {
         }
     }
     
+    //MARK: - Setup UI
     private func setupBackGround() {
         view.backgroundColor = .white
         view.addSubview(background)
@@ -94,8 +100,8 @@ final class GameViewController: UIViewController {
         title = formatTime(seconds: gameTime)
         let customLeftButton = UIBarButtonItem(image: UIImage(named: "backButton"), style: .plain, target: self, action: #selector(backButtonTapped))
         let customRightButton = UIBarButtonItem(image: UIImage(named: "pauseButton"), style: .plain, target: self, action: #selector(pauseButtonTapped))
-        customLeftButton.tintColor = .black
-        customRightButton.tintColor = .black
+        (background.backgroundColor == .black) ? (customLeftButton.tintColor = .white) : (customLeftButton.tintColor = .black)
+        (background.backgroundColor == .black) ? (customRightButton.tintColor = .white) : (customRightButton.tintColor = .black)
         navigationItem.leftBarButtonItem = customLeftButton
         navigationItem.rightBarButtonItem = customRightButton
         navigationItem.rightBarButtonItem?.isSelected = false
@@ -137,41 +143,15 @@ final class GameViewController: UIViewController {
         answerCheck = 0
     }
     
-    private func setupButtonTitle() {
-        switch updateTime {
-        case 1 : 
-            updateButton.setTitle("X4", for: .normal)
-            speed = 4
-        case 2 :  
-            updateButton.setTitle("X3", for: .normal)
-            speed = 3
-        case 3 :  
-            updateButton.setTitle("X2", for: .normal)
-            speed = 2
-        case 4 :  
-            updateButton.setTitle("X1", for: .normal)
-            speed = 1
-        default:
-            break
-        }
-    }
-    
     //MARK: - Targets
-//    @objc func nextCards() {
-//        guard updateTime > 2 else {
-//            updateButton.isHidden = true
-//            return
-//        }
-//        updateTime /= 2
-//    }
-    
-    @objc func backButtonTapped() {
+    @objc private func backButtonTapped() {
         navigationController?.popToRootViewController(animated: true)
         SavingManager.saveValue(value: true, forKey: .ifContinueGame)
         SavingManager.saveValue(value: gameTime - secondsPassed, forKey: .timeLeft)
+        SavingManager.saveValue(value: SettingsManager.shared.speedNumber, forKey: .speedNumber)
     }
     
-    @objc func pauseButtonTapped() {
+    @objc private func pauseButtonTapped() {
         isTimerPaused.toggle()
         guard let isSelected = navigationItem.rightBarButtonItem?.isSelected else {return}
         if !isSelected {
@@ -182,7 +162,7 @@ final class GameViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isSelected.toggle()
     }
     
-    @objc func updateTimer() {
+    @objc private func updateTimer() {
         guard !isTimerPaused else {
             updateButton.isEnabled = false
             return
@@ -192,14 +172,35 @@ final class GameViewController: UIViewController {
         title = formatTime(seconds: gameTime - secondsPassed)
         if secondsPassed == gameTime {
             ResultsManager.shared.saveResult(
-        time: gameTime / 60,
-        speed: speed,
-        answer: answerCheck)
+                time: gameTime / 60,
+                speed: SettingsManager.shared.speedNumber,
+                answer: answerCheck)
             timer?.invalidate()
             present(ResultsViewController(), animated: true)
         } else if secondsPassed % updateTime == 0 {
             cardViews.forEach { $0.removeFromSuperview() }
             setupCards()
+        }
+    }
+    
+    @objc private func tapXButton(_ sender: UIButton) {
+        currentSpeedValue += 1
+        switch currentSpeedValue {
+        case 1 :
+            sender.setTitle("X2", for: .normal)
+            updateTime = 2
+        case 2 :
+            sender.setTitle("X3", for: .normal)
+            updateTime = 3
+        case 3 :
+            sender.setTitle("X4", for: .normal)
+            updateTime = 4
+        case 4 :
+            sender.setTitle("X1", for: .normal)
+            updateTime = 1
+            currentSpeedValue = 0
+        default:
+            break
         }
     }
 }

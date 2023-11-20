@@ -58,8 +58,7 @@ struct SavingManager {
         saveValue(value: settingManager.backgroundColor, forKey: .backgroundColor)
         saveValue(value: settingManager.ifRandomLocation, forKey: .ifRandomLocation)
         saveModel(model: ResultsManager.shared.resultsModel, key: .resultsModel)
-        print("Saving")
-//        saveModel(model: ColorModel.gameColors, key: .gameColors)
+        saveColorsState()
     }
     
     static func saveValue<T>(value: T, forKey key: SettingKey) {
@@ -85,6 +84,12 @@ struct SavingManager {
         }
     }
     
+    static func saveColorsState() {
+        let colorState = settingManager.selectedColors.map { $0.isSelected }
+        userDefaults.set(colorState, forKey: "colorState")
+        print("Цвета сохранены")
+    }
+    
     static func loadResultsModel() {
         if let savedData = userDefaults.data(forKey: SettingKey.resultsModel.rawValue) {
             do {
@@ -95,6 +100,11 @@ struct SavingManager {
                 print("Не удалось загрузить модель")
                 ResultsManager.shared.resultsModel = []
             }
+        }
+        
+        guard let colors = userDefaults.object(forKey: "colorState") as? [Bool] else { return }
+        for i in 0...11 {
+            SettingsManager.shared.selectedColors[i].isSelected = colors[i]
         }
     }
 }

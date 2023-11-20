@@ -166,7 +166,7 @@ final class MainViewController: UIViewController {
     //MARK: - Functions
     private func isContinueButtonAvailable() {
         let ifContinueGame = SavingManager.getValueOfBool(forKey: .ifContinueGame)
-        ifContinueGame 
+        ifContinueGame
         ? (continueGameButton.isEnabled = true)
         : (continueGameButton.isEnabled = false)
     }

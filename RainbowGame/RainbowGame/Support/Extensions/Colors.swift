@@ -5,9 +5,7 @@
 //  Created by Vanopr on 13.11.2023.
 //
 
-import Foundation
 import UIKit
-
 
 extension UIColor {
     static var background: UIColor {
